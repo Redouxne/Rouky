@@ -8,6 +8,8 @@ export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+    // Permet à Prisma de fonctionner avec Vercel Postgres
+    adapter: process.env.NODE_ENV === 'production' ? undefined : undefined,
   })
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

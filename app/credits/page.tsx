@@ -59,13 +59,13 @@ export default async function CreditsPage() {
                   Visiter le site
                 </Button>
               </Link>
-              <Button variant="outline" size="sm" className="gap-1" asChild>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm" className="gap-1 w-full">
                   <Code className="h-4 w-4" />
                   Voir sur GitHub
-                  <ExternalLink className="h-3 w-3 ml-1" />
-                </a>
-              </Button>
+                  <ExternalLink className="h-3 w-3" />
+                </Button>
+              </a>
             </div>
           </CardContent>
         </Card>
@@ -96,16 +96,12 @@ export default async function CreditsPage() {
                 Une roadmap complète pour devenir AI Engineer, couvrant tous les aspects 
                 de l'ingénierie IA moderne.
               </p>
-              <Button variant="outline" size="sm" asChild>
-                <a 
-                  href="https://github.com/PrinceSinghhub/Ultimate-AI-Engineer-Roadmap-2026" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
+              <a href="https://github.com/PrinceSinghhub/Ultimate-AI-Engineer-Roadmap-2026" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm" className="gap-1 w-full">
                   Voir le dépôt original
-                  <ExternalLink className="h-3 w-3 ml-1" />
-                </a>
-              </Button>
+                  <ExternalLink className="h-3 w-3" />
+                </Button>
+              </a>
             </div>
           </CardContent>
         </Card>
@@ -256,18 +252,13 @@ of this software and associated documentation files (the "Software"), to deal
               Rouky est un projet open source. Vous pouvez contribuer en signalant des bugs,
               en suggérant des améliorations ou en soumettant des pull requests.
             </p>
-            <Button variant="outline" size="sm" asChild>
-              <a 
-                href="https://github.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="gap-1"
-              >
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="sm" className="gap-1 w-full">
                 <Code className="h-4 w-4" />
                 Voir le dépôt
-                <ExternalLink className="h-3 w-3 ml-1" />
-              </a>
-            </Button>
+                <ExternalLink className="h-3 w-3" />
+              </Button>
+            </a>
           </CardContent>
         </Card>
 

@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER & PROFILE
+// ============================================
+
+model User {
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  progress   UserProgress?  @relation("UserToProgress")
+  phaseProgress PhaseProgress[]
+  taskProgress TaskProgress[]
+  projectProgress ProjectProgress[]
+  activityLogs ActivityLog[]
+  badgeProgress BadgeProgress[]
+}
+
+model UserProgress {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  xp             Int       @default(0)
+  level          Int       @default(1)
+  currentStreak  Int       @default(0)
+  bestStreak     Int       @default(0)
+  lastActiveDate DateTime?
+  dailyGoal      Int       @default(3)
+  profileLevel   String    @default("beginner") // beginner, intermediate, advanced
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+// ============================================
+// ROADMAP PROGRESS
+// ============================================
+
+model PhaseProgress {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  phaseId      String
+  status       String    @default("locked") // locked, available, in_progress, completed
+  progressPercent Int    @default(0)
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([userId, phaseId])
+  @@index([userId])
+  @@index([phaseId])
+}
+
+model TaskProgress {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId       String
+  completed    Boolean   @default(false)
+  completedAt  DateTime?
+  xpAwarded    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([userId, taskId])
+  @@index([userId])
+  @@index([taskId])
+}
+
+model ProjectProgress {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId    String
+  status       String    @default("not_started") // not_started, in_progress, completed
+  startedAt    DateTime?
+  completedAt  DateTime?
+  xpAwarded    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([userId, projectId])
+  @@index([userId])
+  @@index([projectId])
+}
+
+// ============================================
+// GAMIFICATION
+// ============================================
+
+model ActivityLog {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date       DateTime  @default(now())
+  type       String    // task_completed, module_completed, phase_completed, project_completed, daily_goal, streak
+  xp         Int       @default(0)
+  metadata   Json?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+  @@index([date])
+  @@index([type])
+}
+
+model BadgeProgress {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId    String
+  unlocked   Boolean   @default(false)
+  unlockedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([userId, badgeId])
+  @@index([userId])
+  @@index([badgeId])
+}

@@ -21,7 +21,7 @@ Très important :
 * L’application doit tourner parfaitement sur Vercel.
 * Ne pas utiliser SQLite comme base principale.
 * Utiliser PostgreSQL avec Prisma.
-* L’application doit être compatible avec Neon Postgres, Supabase Postgres ou Vercel Postgres.
+* L’application doit être compatible avec Vercel Postgres.
 * Prévoir les variables d’environnement nécessaires pour Vercel.
 * Le build Vercel doit passer sans erreur.
 * Tout le texte visible par l’utilisateur doit être en français.

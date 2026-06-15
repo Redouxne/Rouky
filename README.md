@@ -31,7 +31,7 @@ Très important :
 * Si du contenu est repris ou adapté du dépôt d’origine, ajoute une page “Crédits / Licence” mentionnant l’inspiration et la licence MIT.
 
 Nom du projet :
-AI Roadmap FR
+Rouky
 
 Positionnement du produit :
 Créer une plateforme d’apprentissage sérieuse, moderne et gamifiée pour devenir ingénieur IA en 2026. L’utilisateur doit pouvoir :
@@ -88,7 +88,7 @@ Le projet doit pouvoir tourner ainsi en local :
 Le projet doit pouvoir être déployé sur Vercel ainsi :
 
 1. connecter le repo GitHub à Vercel
-2. créer une base PostgreSQL sur Neon, Supabase ou Vercel Postgres
+2. créer une base PostgreSQL sur Vercel Postgres
 3. ajouter DATABASE_URL dans les variables d’environnement Vercel
 4. lancer le build
 5. déployer sans erreur
@@ -816,10 +816,9 @@ Pages obligatoires :
 9. Page Crédits / Licence
    Contenu :
 
-* Mentionner que l’application est inspirée du dépôt GitHub “Ultimate-AI-Engineer-Roadmap-2026”
+* Mentionner que l’application est créer par Redouane EL BADAOUI en open build sur GitHub “devenir-ingenieur-ia"
 * Mentionner la licence MIT si du contenu est réutilisé ou adapté
-* Phrase obligatoire :
-  “Cette application est une adaptation francophone interactive et gamifiée d’une roadmap open source consacrée au métier d’ingénieur IA.”
+
 
 Gamification à implémenter :
 
@@ -1015,4 +1014,4 @@ Crée et modifie les fichiers nécessaires.
 * les limites éventuelles
 * les améliorations possibles
 
-Commence maintenant par analyser le projet existant, puis implémente cette webapp complète compatible Vercel.
+Commence maintenant par analyser le projet, puis implémente cette webapp complète compatible Vercel.

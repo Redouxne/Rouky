@@ -573,3 +573,5 @@ export const exportProgress = async (userId: string) => {
 
 // Note: Import would need to handle data validation and merging
 // For MVP, we'll focus on export only
+
+export { getUserStats }

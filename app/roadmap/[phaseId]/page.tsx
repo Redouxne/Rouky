@@ -192,7 +192,7 @@ export default async function PhaseDetailPage({
                 >
                   <Checkbox 
                     id={`task-${phase.id}-${index}`}
-                    checked={phaseData.tasks.find(t => t.id === task.id)?.completed || false}
+                    checked={false}
                     disabled={phaseData.userProgress.status === 'locked'}
                     className="data-[state=checked]:bg-green-500 data-[state=checked]:border-green-500"
                   />

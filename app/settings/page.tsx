@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -16,13 +16,6 @@ import {
   Upload,
   AlertTriangle
 } from 'lucide-react'
-import { 
-  getCurrentUserId, 
-  updateProfileSettings,
-  resetProgress,
-  exportProgress,
-  getUserStats
-} from '@/lib/progress'
 import { formatNumber, formatDate } from '@/lib/utils'
 
 type ProfileLevel = 'beginner' | 'intermediate' | 'advanced'
@@ -44,7 +37,15 @@ export default function SettingsPage() {
     dailyGoal: number
     profileLevel: ProfileLevel
     createdAt: string
-  } | null>(null)
+  } | null>({
+    xp: 0,
+    level: 1,
+    currentStreak: 0,
+    bestStreak: 0,
+    dailyGoal: 3,
+    profileLevel: 'beginner',
+    createdAt: new Date().toISOString(),
+  })
   
   const [settings, setSettings] = useState({
     dailyGoal: 3,
@@ -54,59 +55,13 @@ export default function SettingsPage() {
   const [isResetting, setIsResetting] = useState(false)
   const [showConfirmReset, setShowConfirmReset] = useState(false)
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const userId = await getCurrentUserId()
-        const stats = await getUserStats(userId)
-        
-        if (stats?.progress) {
-          setUserStats({
-            xp: stats.progress.xp,
-            level: stats.progress.level,
-            currentStreak: stats.progress.currentStreak,
-            bestStreak: stats.progress.bestStreak,
-            dailyGoal: stats.progress.dailyGoal,
-            profileLevel: stats.progress.profileLevel as ProfileLevel,
-            createdAt: stats.user?.createdAt?.toISOString() || '',
-          })
-          
-          setSettings({
-            dailyGoal: stats.progress.dailyGoal,
-            profileLevel: stats.progress.profileLevel as ProfileLevel,
-          })
-        }
-      } catch (error) {
-        console.error('Failed to fetch user stats:', error)
-      }
-    }
-    
-    fetchStats()
-  }, [])
-
   const handleSaveSettings = async () => {
-    try {
-      const userId = await getCurrentUserId()
-      await updateProfileSettings(userId, {
-        dailyGoal: settings.dailyGoal,
-        profileLevel: settings.profileLevel,
-      })
-      
-      // Refresh stats
-      const updatedStats = await getUserStats(userId)
-      if (updatedStats?.progress) {
-        setUserStats({
-          ...userStats!,
-          dailyGoal: updatedStats.progress.dailyGoal,
-          profileLevel: updatedStats.progress.profileLevel as ProfileLevel,
-        })
-      }
-      
-      alert('Paramètres sauvegardés avec succès !')
-    } catch (error) {
-      console.error('Failed to save settings:', error)
-      alert('Échec de la sauvegarde des paramètres')
-    }
+    setUserStats({
+      ...userStats!,
+      dailyGoal: settings.dailyGoal,
+      profileLevel: settings.profileLevel,
+    })
+    alert('Paramètres sauvegardés localement.')
   }
 
   const handleResetProgress = async () => {
@@ -116,17 +71,9 @@ export default function SettingsPage() {
     }
 
     setIsResetting(true)
-    try {
-      const userId = await getCurrentUserId()
-      await resetProgress(userId)
-      
-      // Refresh page
-      window.location.reload()
-    } catch (error) {
-      console.error('Failed to reset progress:', error)
-      alert('Échec de la réinitialisation')
-      setIsResetting(false)
-    }
+    setShowConfirmReset(false)
+    setIsResetting(false)
+    alert('La réinitialisation sera réactivée quand la base sera configurée.')
   }
 
   const handleCancelReset = () => {
@@ -135,8 +82,14 @@ export default function SettingsPage() {
 
   const handleExportProgress = async () => {
     try {
-      const userId = await getCurrentUserId()
-      const data = await exportProgress(userId)
+      const data = {
+        userProgress: userStats,
+        taskProgresses: [],
+        projectProgresses: [],
+        phaseProgresses: [],
+        badgeProgresses: [],
+        exportedAt: new Date(),
+      }
       
       // Download as JSON
       const json = JSON.stringify(data, null, 2)

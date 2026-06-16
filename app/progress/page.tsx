@@ -18,6 +18,8 @@ import {
   Target
 } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProgressPage() {
   const userId = await getCurrentUserId()
   const progress = await getRoadmapProgress(userId)

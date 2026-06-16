@@ -8,6 +8,8 @@ import { phases, roadmap } from '@/lib/roadmap-data'
 import { formatNumber, formatRelativeDate, getDifficultyLabel, getStatusColor } from '@/lib/utils'
 import { CheckSquare, Flame, Trophy, Calendar, Clock, TrendingUp, Award, Target } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardPage() {
   const userId = await getCurrentUserId()
   const progress = await getRoadmapProgress(userId)

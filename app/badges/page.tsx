@@ -23,6 +23,8 @@ import {
   Calendar
 } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 const badgeIcons: Record<string, React.ReactNode> = {
   'footprints': <Users className="h-6 w-6" />,
   'flame': <Flame className="h-6 w-6" />,

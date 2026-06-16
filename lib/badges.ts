@@ -1,6 +1,21 @@
 import { prisma } from './prisma'
 import type { Badge } from '@/types/roadmap'
 
+const isDatabaseUnavailable = (error: unknown) => {
+  const code = (error as { code?: string })?.code
+  const message = error instanceof Error ? error.message : ''
+
+  return (
+    code === 'P2021' ||
+    code === 'P1001' ||
+    code === 'P1012' ||
+    message.includes('DATABASE_URL') ||
+    message.includes('does not exist')
+  )
+}
+
+const hasDatabaseConfig = () => Boolean(process.env.DATABASE_URL || process.env.STORAGE_POSTGRES_PRISMA_URL)
+
 // ============================================
 // BADGE DEFINITIONS
 // ============================================
@@ -165,8 +180,10 @@ export const badges: Badge[] = [
 export const checkBadgeRequirements = async (userId: string, badgeId: string) => {
   const badge = badges.find(b => b.id === badgeId)
   if (!badge) return false
+  if (!hasDatabaseConfig()) return false
 
-  switch (badge.requirement) {
+  try {
+    switch (badge.requirement) {
     case 'completed_tasks':
       const taskCount = await prisma.taskProgress.count({
         where: { userId, completed: true },
@@ -240,13 +257,19 @@ export const checkBadgeRequirements = async (userId: string, badgeId: string) =>
 
     default:
       return false
+    }
+  } catch (error) {
+    if (isDatabaseUnavailable(error)) return false
+    throw error
   }
 }
 
 export const checkAndAwardBadges = async (userId: string) => {
   const awardedBadges: string[] = []
+  if (!hasDatabaseConfig()) return awardedBadges
 
-  for (const badge of badges) {
+  try {
+    for (const badge of badges) {
     // Check if badge is already unlocked
     const existingBadge = await prisma.badgeProgress.findFirst({
       where: { userId, badgeId: badge.id },
@@ -300,25 +323,47 @@ export const checkAndAwardBadges = async (userId: string) => {
     }
   }
 
-  return awardedBadges
+    return awardedBadges
+  } catch (error) {
+    if (isDatabaseUnavailable(error)) return []
+    throw error
+  }
 }
 
 export const getUserBadges = async (userId: string) => {
-  const badgeProgresses = await prisma.badgeProgress.findMany({
-    where: { userId },
-    include: {
-      user: false,
-    },
-  })
-
-  return badges.map(badge => {
-    const userBadge = badgeProgresses.find(bp => bp.badgeId === badge.id)
-    return {
+  if (!hasDatabaseConfig()) {
+    return badges.map(badge => ({
       ...badge,
-      unlocked: userBadge?.unlocked || false,
-      unlockedAt: userBadge?.unlockedAt || null,
-    }
-  })
+      unlocked: false,
+      unlockedAt: null,
+    }))
+  }
+
+  try {
+    const badgeProgresses = await prisma.badgeProgress.findMany({
+      where: { userId },
+      include: {
+        user: false,
+      },
+    })
+
+    return badges.map(badge => {
+      const userBadge = badgeProgresses.find(bp => bp.badgeId === badge.id)
+      return {
+        ...badge,
+        unlocked: userBadge?.unlocked || false,
+        unlockedAt: userBadge?.unlockedAt || null,
+      }
+    })
+  } catch (error) {
+    if (!isDatabaseUnavailable(error)) throw error
+
+    return badges.map(badge => ({
+      ...badge,
+      unlocked: false,
+      unlockedAt: null,
+    }))
+  }
 }
 
 export const getBadgeById = (badgeId: string) => {

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   // Close sidebar on mobile when route changes
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         )}
 
         {/* Main content */}
-        <div className="flex-1 lg:ml-0" style={{ marginLeft: isSidebarOpen && window.innerWidth >= 768 ? '16rem' : '0' }}>
+        <div className="flex-1 lg:ml-0">
           {/* Header */}
           <Header onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
 

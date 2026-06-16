@@ -1,10 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Menu, Home } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { useState, useEffect } from 'react'
-import { getCurrentUserId, getUserStats } from '@/lib/progress'
+import { Menu } from 'lucide-react'
 import { formatNumber } from '@/lib/utils'
 
 interface HeaderProps {
@@ -12,28 +9,7 @@ interface HeaderProps {
 }
 
 export default function Header({ onMenuClick }: HeaderProps) {
-  const [userStats, setUserStats] = useState<{
-    xp: number
-    level: number
-  } | null>(null)
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const userId = await getCurrentUserId()
-        const stats = await getUserStats(userId)
-        if (stats?.progress) {
-          setUserStats({
-            xp: stats.progress.xp,
-            level: stats.progress.level,
-          })
-        }
-      } catch (error) {
-        console.error('Failed to fetch user stats:', error)
-      }
-    }
-    fetchStats()
-  }, [])
+  const userStats = { xp: 0, level: 1 }
 
   return (
     <header className="sticky top-0 z-10 h-16 bg-background/80 backdrop-blur-sm border-b border-border">

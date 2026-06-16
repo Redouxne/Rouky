@@ -24,6 +24,8 @@ import {
   TrendingUp
 } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 const phaseIcons: Record<string, React.ReactNode> = {
   'fundamentals': <BookOpen className="h-5 w-5" />,
   'programming': <Code className="h-5 w-5" />,

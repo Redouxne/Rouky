@@ -5,6 +5,43 @@ import type {
   ProfileLevel,
 } from '@/types/roadmap'
 
+const isDatabaseUnavailable = (error: unknown) => {
+  const code = (error as { code?: string })?.code
+  const message = error instanceof Error ? error.message : ''
+
+  return (
+    code === 'P2021' ||
+    code === 'P1001' ||
+    code === 'P1012' ||
+    message.includes('DATABASE_URL') ||
+    message.includes('does not exist')
+  )
+}
+
+const hasDatabaseConfig = () => Boolean(process.env.DATABASE_URL || process.env.STORAGE_POSTGRES_PRISMA_URL)
+
+const getEmptyUserStats = () => ({
+  user: {
+    name: 'Utilisateur',
+    email: 'default@example.com',
+    createdAt: new Date(),
+  },
+  progress: {
+    xp: 0,
+    level: 1,
+    currentStreak: 0,
+    bestStreak: 0,
+    dailyGoal: 3,
+    profileLevel: 'beginner',
+  },
+  stats: {
+    totalTasks: 0,
+    totalProjects: 0,
+    totalPhases: 0,
+    recentActivity: [],
+  },
+})
+
 // ============================================
 // LEVEL THRESHOLDS
 // ============================================
@@ -265,45 +302,52 @@ export const getXPForAction = (type: string, difficulty?: string) => {
 // ============================================
 
 export const getUserStats = async (userId: string) => {
-  const userProgress = await prisma.userProgress.findUnique({
-    where: { userId },
-    include: {
-      user: {
-        select: { name: true, email: true, createdAt: true },
+  if (!hasDatabaseConfig()) return getEmptyUserStats()
+
+  try {
+    const userProgress = await prisma.userProgress.findUnique({
+      where: { userId },
+      include: {
+        user: {
+          select: { name: true, email: true, createdAt: true },
+        },
       },
-    },
-  })
+    })
 
-  if (!userProgress) {
-    return null
-  }
+    if (!userProgress) {
+      return getEmptyUserStats()
+    }
 
-  const totalTasks = await prisma.taskProgress.count({
-    where: { userId, completed: true },
-  })
+    const totalTasks = await prisma.taskProgress.count({
+      where: { userId, completed: true },
+    })
 
-  const totalProjects = await prisma.projectProgress.count({
-    where: { userId, status: 'completed' },
-  })
+    const totalProjects = await prisma.projectProgress.count({
+      where: { userId, status: 'completed' },
+    })
 
-  const totalPhases = await prisma.phaseProgress.count({
-    where: { userId, status: 'completed' },
-  })
+    const totalPhases = await prisma.phaseProgress.count({
+      where: { userId, status: 'completed' },
+    })
 
-  const recentActivity = await prisma.activityLog.findMany({
-    where: { userId },
-    orderBy: { createdAt: 'desc' },
-    take: 10,
-  })
+    const recentActivity = await prisma.activityLog.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      take: 10,
+    })
 
-  return {
-    user: userProgress.user,
-    progress: userProgress,
-    stats: {
-      totalTasks,
-      totalProjects,
-      totalPhases,
-      recentActivity,
-    },
+    return {
+      user: userProgress.user,
+      progress: userProgress,
+      stats: {
+        totalTasks,
+        totalProjects,
+        totalPhases,
+        recentActivity,
+      },
+    }
+  } catch (error) {
+    if (isDatabaseUnavailable(error)) return getEmptyUserStats()
+    throw error
   }
 }

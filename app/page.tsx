@@ -5,6 +5,8 @@ import { roadmap } from '@/lib/roadmap-data'
 import { getCurrentUserId, getRoadmapProgress } from '@/lib/progress'
 import { formatNumber } from '@/lib/utils'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const userId = await getCurrentUserId()
   const progress = await getRoadmapProgress(userId)

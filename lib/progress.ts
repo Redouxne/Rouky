@@ -16,6 +16,60 @@ import type {
 
 export const DEFAULT_USER_ID = 'default-user'
 
+const isDatabaseUnavailable = (error: unknown) => {
+  const code = (error as { code?: string })?.code
+  const message = error instanceof Error ? error.message : ''
+
+  return (
+    code === 'P2021' ||
+    code === 'P1001' ||
+    code === 'P1012' ||
+    message.includes('DATABASE_URL') ||
+    message.includes('does not exist')
+  )
+}
+
+const hasDatabaseConfig = () => Boolean(process.env.DATABASE_URL || process.env.STORAGE_POSTGRES_PRISMA_URL)
+
+const getEmptyRoadmapProgress = () => {
+  const totalTasks = phases.reduce((sum, phase) => sum + phase.tasks.length, 0)
+
+  return {
+    completedPhases: 0,
+    inProgressPhases: 0,
+    availablePhases: 1,
+    totalPhases: phases.length,
+    totalProgressPercent: 0,
+    totalTasksCompleted: 0,
+    totalTasks,
+    isCapstoneUnlocked: false,
+    phases: phases.map(phase => ({
+      id: phase.id,
+      title: phase.title,
+      phaseNumber: phase.phaseNumber,
+      status: phase.phaseNumber === 0 ? 'available' : 'locked',
+      progressPercent: 0,
+    })),
+  }
+}
+
+const getEmptyPhaseProgress = (phaseId: string) => {
+  const phase = phases.find(p => p.id === phaseId)
+  if (!phase) return null
+
+  return {
+    ...phase,
+    userProgress: {
+      status: phase.phaseNumber === 0 ? 'available' : 'locked',
+      progressPercent: 0,
+      completedTasks: 0,
+      totalTasks: phase.tasks.length,
+      hasCompletedProject: false,
+      completedAt: null,
+    },
+  }
+}
+
 // ============================================
 // INITIALIZE DEFAULT USER
 // ============================================
@@ -58,7 +112,14 @@ export const initializeDefaultUser = async () => {
 // ============================================
 
 export const getCurrentUserId = async () => {
-  await initializeDefaultUser()
+  if (!hasDatabaseConfig()) return DEFAULT_USER_ID
+
+  try {
+    await initializeDefaultUser()
+  } catch (error) {
+    if (!isDatabaseUnavailable(error)) throw error
+  }
+
   return DEFAULT_USER_ID
 }
 
@@ -69,10 +130,12 @@ export const getCurrentUserId = async () => {
 export const getPhaseProgress = async (userId: string, phaseId: string) => {
   const phase = phases.find(p => p.id === phaseId)
   if (!phase) return null
+  if (!hasDatabaseConfig()) return getEmptyPhaseProgress(phaseId)
 
-  const phaseProgress = await prisma.phaseProgress.findUnique({
-    where: { userId_phaseId: { userId, phaseId } },
-  })
+  try {
+    const phaseProgress = await prisma.phaseProgress.findUnique({
+      where: { userId_phaseId: { userId, phaseId } },
+    })
 
   const taskProgresses = await prisma.taskProgress.findMany({
     where: { userId },
@@ -113,16 +176,20 @@ export const getPhaseProgress = async (userId: string, phaseId: string) => {
     }
   }
 
-  return {
-    ...phase,
-    userProgress: {
-      status,
-      progressPercent,
-      completedTasks,
-      totalTasks,
-      hasCompletedProject,
-      completedAt: phaseProgress?.completedAt || null,
-    },
+    return {
+      ...phase,
+      userProgress: {
+        status,
+        progressPercent,
+        completedTasks,
+        totalTasks,
+        hasCompletedProject,
+        completedAt: phaseProgress?.completedAt || null,
+      },
+    }
+  } catch (error) {
+    if (isDatabaseUnavailable(error)) return getEmptyPhaseProgress(phaseId)
+    throw error
   }
 }
 
@@ -401,9 +468,12 @@ export const completeProject = async (userId: string, projectId: string) => {
 // ============================================
 
 export const getRoadmapProgress = async (userId: string) => {
-  const phaseProgresses = await prisma.phaseProgress.findMany({
-    where: { userId },
-  })
+  if (!hasDatabaseConfig()) return getEmptyRoadmapProgress()
+
+  try {
+    const phaseProgresses = await prisma.phaseProgress.findMany({
+      where: { userId },
+    })
 
   const completedPhases = phaseProgresses.filter(pp => pp.status === 'completed').length
   const inProgressPhases = phaseProgresses.filter(pp => pp.status === 'in_progress').length
@@ -434,22 +504,26 @@ export const getRoadmapProgress = async (userId: string) => {
   // Check if capstone is unlocked (majority of phases completed)
   const isCapstoneUnlocked = completedPhases >= Math.ceil(phases.length / 2)
 
-  return {
-    completedPhases,
-    inProgressPhases,
-    availablePhases,
-    totalPhases: phases.length,
-    totalProgressPercent,
-    totalTasksCompleted,
-    totalTasks,
-    isCapstoneUnlocked,
-    phases: phases.map(phase => ({
-      id: phase.id,
-      title: phase.title,
-      phaseNumber: phase.phaseNumber,
-      status: phaseProgresses.find(pp => pp.phaseId === phase.id)?.status || 'locked',
-      progressPercent: phaseProgresses.find(pp => pp.phaseId === phase.id)?.progressPercent || 0,
-    })),
+    return {
+      completedPhases,
+      inProgressPhases,
+      availablePhases,
+      totalPhases: phases.length,
+      totalProgressPercent,
+      totalTasksCompleted,
+      totalTasks,
+      isCapstoneUnlocked,
+      phases: phases.map(phase => ({
+        id: phase.id,
+        title: phase.title,
+        phaseNumber: phase.phaseNumber,
+        status: phaseProgresses.find(pp => pp.phaseId === phase.id)?.status || 'locked',
+        progressPercent: phaseProgresses.find(pp => pp.phaseId === phase.id)?.progressPercent || 0,
+      })),
+    }
+  } catch (error) {
+    if (isDatabaseUnavailable(error)) return getEmptyRoadmapProgress()
+    throw error
   }
 }
 
@@ -461,37 +535,52 @@ export const getActivityStats = async (userId: string, days: number = 7) => {
   const today = new Date()
   const startDate = new Date(today)
   startDate.setDate(startDate.getDate() - days)
+  const emptyStats = () => Object.fromEntries(
+    Array.from({ length: days }, (_, i) => {
+      const date = new Date(today)
+      date.setDate(date.getDate() - i)
+      return [date.toISOString().split('T')[0], { xp: 0, count: 0 }]
+    })
+  )
 
-  // Get activity by date
-  const activities = await prisma.activityLog.groupBy({
-    by: ['date'],
-    where: {
-      userId,
-      date: { gte: startDate },
-    },
-    _sum: { xp: true },
-    _count: { _all: true },
-  })
+  if (!hasDatabaseConfig()) return emptyStats()
 
-  // Fill in missing dates
-  const statsByDate: Record<string, { xp: number; count: number }> = {}
+  try {
+    // Get activity by date
+    const activities = await prisma.activityLog.groupBy({
+      by: ['date'],
+      where: {
+        userId,
+        date: { gte: startDate },
+      },
+      _sum: { xp: true },
+      _count: { _all: true },
+    })
+
+    // Fill in missing dates
+    const statsByDate: Record<string, { xp: number; count: number }> = {}
   
-  for (let i = 0; i < days; i++) {
-    const date = new Date(today)
-    date.setDate(date.getDate() - i)
-    const dateStr = date.toISOString().split('T')[0]
+    for (let i = 0; i < days; i++) {
+      const date = new Date(today)
+      date.setDate(date.getDate() - i)
+      const dateStr = date.toISOString().split('T')[0]
     
-    const activity = activities.find(a => 
-      a.date.toISOString().split('T')[0] === dateStr
-    )
+      const activity = activities.find(a => 
+        a.date.toISOString().split('T')[0] === dateStr
+      )
     
-    statsByDate[dateStr] = {
-      xp: activity?._sum.xp || 0,
-      count: activity?._count._all || 0,
+      statsByDate[dateStr] = {
+        xp: activity?._sum.xp || 0,
+        count: activity?._count._all || 0,
+      }
     }
-  }
 
-  return statsByDate
+    return statsByDate
+  } catch (error) {
+    if (!isDatabaseUnavailable(error)) throw error
+
+    return emptyStats()
+  }
 }
 
 // ============================================

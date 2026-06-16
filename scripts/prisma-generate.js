@@ -6,13 +6,10 @@
 
 const { execSync } = require('child_process');
 
-const rawUrl = process.env.STORAGE_POSTGRES_PRISMA_URL;
-
-if (!rawUrl) {
-  console.error('❌ Erreur : STORAGE_POSTGRES_PRISMA_URL est manquante');
-  console.error('   Assurez-vous que cette variable est définie dans Vercel');
-  process.exit(1);
-}
+const rawUrl =
+  process.env.DATABASE_URL ||
+  process.env.STORAGE_POSTGRES_PRISMA_URL ||
+  'postgresql://user:password@localhost:5432/rouky?schema=public';
 
 // Corrige le format de l'URL
 let fixedUrl = rawUrl.replace(/^postgres:\/\//, 'postgresql://');
@@ -29,9 +26,7 @@ if (!fixedUrl.includes('sslmode=') && !fixedUrl.includes('localhost')) {
   fixedUrl = fixedUrl + separator + 'sslmode=require';
 }
 
-console.log('✅ Database URL corrigée :');
-console.log('   Avant :', rawUrl);
-console.log('   Après :', fixedUrl);
+console.log('✅ Database URL prête pour Prisma generate');
 
 // Lance prisma generate avec la bonne URL
 try {

@@ -138,7 +138,7 @@ export default async function BadgesPage() {
               <Card key={category}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    {categoryIcons[category] || <Trophy className="h-6 w-6" />}
+                    <Trophy className="h-6 w-6" />
                     {categoryLabels[category] || category}
                   </CardTitle>
                   <CardDescription>

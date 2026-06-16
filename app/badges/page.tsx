@@ -182,7 +182,7 @@ export default async function BadgesPage() {
                             <p className="text-xs text-muted-foreground">
                               {badge.requirement === 'completed_tasks' && 'Terminez ' + badge.requirementValue + ' tâches'}
                               {badge.requirement === 'current_streak' && 'Atteignez ' + badge.requirementValue + ' jours de streak'}
-                              {badge.requirement === 'completed_phase' && 'Terminez la phase ' + badge.requirementValue.replace('phase-', '')}
+                              'Terminez la phase ' + String(badge.requirementValue.replace('phase-', ''))
                               {badge.requirement === 'completed_projects' && 'Terminez ' + badge.requirementValue + ' projets'}
                               {badge.requirement === 'completed_all_phases' && 'Terminez toutes les phases'}
                               {badge.requirement === 'completed_capstone' && 'Validez le Capstone'}

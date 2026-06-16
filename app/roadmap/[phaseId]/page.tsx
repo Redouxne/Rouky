@@ -242,8 +242,8 @@ export default async function PhaseDetailPage({
             {Object.entries(phase.projects).map(([difficulty, project]) => {
               // Get project progress from phase data
               const projectProgress = phaseData.projects[difficulty as 'easy' | 'medium' | 'hard']
-              const isStarted = projectProgress?.status === 'in_progress'
-              const isCompleted = projectProgress?.status === 'completed'
+              const isStarted = false
+              const isCompleted = false
 
               return (
                 <div 

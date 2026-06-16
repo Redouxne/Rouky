@@ -1,6 +1,7 @@
 import { prisma } from './prisma'
 import { roadmap, phases } from './roadmap-data'
-import { awardXP, updateStreak, checkAndAwardBadges, getUserStats } from './gamification'
+import { awardXP, updateStreak, getUserStats } from './gamification'
+//import { awardXP, updateStreak, checkAndAwardBadges, getUserStats } from './gamification' checkAndAwardBadges pas encore implémenté
 import { checkBadgeRequirements } from './badges'
 import type {
   PhaseStatus,

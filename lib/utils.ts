@@ -41,13 +41,13 @@ export function formatRelativeDate(date: Date | null): string {
 export function getDifficultyColor(difficulty: string): string {
   switch (difficulty) {
     case 'beginner':
-      return 'text-green-400'
+      return 'text-[hsl(var(--gold-light))]'
     case 'intermediate':
-      return 'text-yellow-400'
+      return 'text-primary'
     case 'advanced':
-      return 'text-red-400'
+      return 'text-accent'
     default:
-      return 'text-blue-400'
+      return 'text-muted-foreground'
   }
 }
 
@@ -67,11 +67,11 @@ export function getDifficultyLabel(difficulty: string): string {
 export function getStatusColor(status: string): string {
   switch (status) {
     case 'completed':
-      return 'bg-green-500/20 text-green-400 border border-green-500/30'
+      return 'bg-primary/15 text-[hsl(var(--gold-light))] border border-primary/35'
     case 'in_progress':
-      return 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+      return 'bg-secondary/35 text-foreground border border-secondary/50'
     case 'available':
-      return 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+      return 'bg-card text-muted-foreground border border-border'
     case 'locked':
     default:
       return 'bg-muted text-muted-foreground border border-border'

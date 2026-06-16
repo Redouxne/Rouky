@@ -171,7 +171,7 @@ of this software and associated documentation files (the "Software"), to deal
 
               <div className="text-center">
                 <div className="h-10 w-10 mx-auto mb-2 flex items-center justify-center rounded-lg bg-muted">
-                  <span className="font-bold text-lg text-blue-500">TS</span>
+                  <span className="font-bold text-lg text-primary">TS</span>
                 </div>
                 <h4 className="font-medium text-sm">TypeScript</h4>
                 <p className="text-xs text-muted-foreground">Langage typé</p>
@@ -187,7 +187,7 @@ of this software and associated documentation files (the "Software"), to deal
 
               <div className="text-center">
                 <div className="h-10 w-10 mx-auto mb-2 flex items-center justify-center rounded-lg bg-muted">
-                  <span className="font-bold text-lg text-blue-600">PG</span>
+                  <span className="font-bold text-lg text-primary">PG</span>
                 </div>
                 <h4 className="font-medium text-sm">PostgreSQL</h4>
                 <p className="text-xs text-muted-foreground">Base de données</p>

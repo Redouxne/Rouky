@@ -248,9 +248,9 @@ export default async function ProgressPage() {
 
         {/* Completion Message */}
         {progress.totalProgressPercent === 100 && (
-          <Card className="border-2 border-green-500 bg-green-500/5">
+          <Card className="border-2 border-primary bg-primary/5">
             <CardHeader className="text-center">
-              <CardTitle className="text-green-500">
+              <CardTitle className="text-primary">
                 Félicitations ! 🎉
               </CardTitle>
               <CardDescription className="text-center">

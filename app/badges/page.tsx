@@ -59,15 +59,15 @@ const categoryLabels: Record<string, string> = {
 }
 
 const categoryColors: Record<string, string> = {
-  'debut': 'from-green-500 to-emerald-500',
-  'streak': 'from-orange-500 to-amber-500',
-  'phase': 'from-blue-500 to-cyan-500',
-  'project': 'from-purple-500 to-violet-500',
-  'achievement': 'from-yellow-500 to-orange-500',
-  'capstone': 'from-pink-500 to-rose-500',
-  'daily': 'from-indigo-500 to-purple-500',
-  'meta': 'from-slate-500 to-gray-500',
-  'level': 'from-sky-500 to-blue-500',
+  'debut': 'from-primary to-[hsl(var(--gold-light))]',
+  'streak': 'from-secondary to-primary',
+  'phase': 'from-primary to-secondary',
+  'project': 'from-[hsl(var(--gold-light))] to-secondary',
+  'achievement': 'from-primary to-[hsl(var(--gold-pale))]',
+  'capstone': 'from-secondary to-[hsl(var(--gold-light))]',
+  'daily': 'from-[hsl(var(--bordeaux-dark))] to-primary',
+  'meta': 'from-card to-secondary',
+  'level': 'from-primary to-secondary',
 }
 
 export default async function BadgesPage() {
@@ -196,7 +196,7 @@ export default async function BadgesPage() {
                           )}
                           {isUnlocked && (
                             <div className="flex items-center justify-between pt-2">
-                              <span className="text-xs bg-green-500/20 text-green-500 px-2 py-0.5 rounded-full">
+                              <span className="text-xs bg-primary/15 text-primary px-2 py-0.5 rounded-[2px] border border-primary/30">
                                 +{badge.xp} XP
                               </span>
                               {userBadge?.unlockedAt && (
@@ -238,9 +238,9 @@ export default async function BadgesPage() {
 
         {/* All Badges Unlocked Message */}
         {unlockedBadges.length === totalBadges && (
-          <Card className="border-2 border-green-500 bg-green-500/5 text-center">
+          <Card className="border-2 border-primary bg-primary/5 text-center">
             <CardHeader>
-              <CardTitle className="text-green-500">
+              <CardTitle className="text-primary">
                 Collection complète ! 🎉
               </CardTitle>
               <CardDescription>

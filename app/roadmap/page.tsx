@@ -48,24 +48,24 @@ const phaseIcons: Record<string, React.ReactNode> = {
 }
 
 const phaseColors: Record<string, string> = {
-  'fundamentals': 'from-blue-500 to-cyan-500',
-  'programming': 'from-green-500 to-emerald-500',
-  'math': 'from-purple-500 to-violet-500',
-  'ml': 'from-orange-500 to-amber-500',
-  'deep-learning': 'from-red-500 to-pink-500',
-  'nlp': 'from-indigo-500 to-purple-500',
-  'llm': 'from-yellow-500 to-orange-500',
-  'orchestration': 'from-teal-500 to-green-500',
-  'rag': 'from-cyan-500 to-blue-500',
-  'agents': 'from-pink-500 to-red-500',
-  'fine-tuning': 'from-violet-500 to-purple-500',
-  'multimodal': 'from-rose-500 to-pink-500',
-  'mlops': 'from-gray-500 to-slate-500',
-  'system-design': 'from-sky-500 to-blue-500',
-  'database': 'from-emerald-500 to-green-500',
-  'optimization': 'from-amber-500 to-yellow-500',
-  'rl': 'from-lime-500 to-green-500',
-  'ethics': 'from-slate-500 to-gray-500',
+  'fundamentals': 'from-primary to-[hsl(var(--gold-light))]',
+  'programming': 'from-secondary to-primary',
+  'math': 'from-primary to-secondary',
+  'ml': 'from-[hsl(var(--gold-light))] to-secondary',
+  'deep-learning': 'from-secondary to-[hsl(var(--gold-light))]',
+  'nlp': 'from-[hsl(var(--bordeaux-dark))] to-primary',
+  'llm': 'from-primary to-[hsl(var(--gold-pale))]',
+  'orchestration': 'from-secondary to-primary',
+  'rag': 'from-primary to-secondary',
+  'agents': 'from-secondary to-[hsl(var(--gold-light))]',
+  'fine-tuning': 'from-[hsl(var(--gold-light))] to-secondary',
+  'multimodal': 'from-primary to-[hsl(var(--gold-light))]',
+  'mlops': 'from-card to-secondary',
+  'system-design': 'from-primary to-secondary',
+  'database': 'from-secondary to-primary',
+  'optimization': 'from-primary to-[hsl(var(--gold-pale))]',
+  'rl': 'from-[hsl(var(--gold-light))] to-secondary',
+  'ethics': 'from-card to-secondary',
 }
 
 export default async function RoadmapPage() {
@@ -130,15 +130,15 @@ export default async function RoadmapPage() {
             Toutes les phases
           </Button>
           <Button variant="ghost" size="sm" className="gap-1">
-            <span className="h-4 w-4 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center text-xs">✓</span>
+            <span className="h-4 w-4 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs">✓</span>
             Terminées
           </Button>
           <Button variant="ghost" size="sm" className="gap-1">
-            <span className="h-4 w-4 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-xs">⟳</span>
+            <span className="h-4 w-4 rounded-full bg-secondary/35 text-foreground flex items-center justify-center text-xs">⟳</span>
             En cours
           </Button>
           <Button variant="ghost" size="sm" className="gap-1">
-            <span className="h-4 w-4 rounded-full bg-gray-500/20 text-gray-500 flex items-center justify-center text-xs">🔒</span>
+            <span className="h-4 w-4 rounded-full bg-muted/60 text-muted-foreground flex items-center justify-center text-xs">🔒</span>
             Verrouillées
           </Button>
         </div>

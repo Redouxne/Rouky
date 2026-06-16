@@ -87,7 +87,7 @@ export default async function ProjectsPage() {
             Tous les projets
           </Button>
           <Button variant="ghost" size="sm" className="gap-1">
-            <span className="h-4 w-4 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center text-xs">✓</span>
+            <span className="h-4 w-4 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs">✓</span>
             Non commencés
           </Button>
           <Button variant="ghost" size="sm" className="gap-1">

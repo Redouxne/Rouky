@@ -125,7 +125,7 @@ export default async function PhaseDetailPage({
               <Progress value={progressPercent} className="h-3" />
               
               {phaseData.userProgress.status === 'completed' && (
-                <p className="text-sm text-green-500 flex items-center gap-1.5 mt-2">
+                <p className="text-sm text-primary flex items-center gap-1.5 mt-2">
                   <CheckCircle className="h-4 w-4" />
                   Phase terminée !
                 </p>
@@ -196,7 +196,7 @@ export default async function PhaseDetailPage({
                     id={`task-${phase.id}-${index}`}
                     checked={false}
                     disabled={phaseData.userProgress.status === 'locked'}
-                    className="data-[state=checked]:bg-green-500 data-[state=checked]:border-green-500"
+                    className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                   />
                   <label 
                     htmlFor={`task-${phase.id}-${index}`}
@@ -286,7 +286,7 @@ export default async function PhaseDetailPage({
                     
                     {isStarted && !isCompleted && (
                       <form action={handleCompleteProject.bind(null, project.id)}>
-                        <Button type="submit" size="sm" className="bg-green-500 hover:bg-green-600">
+                        <Button type="submit" size="sm">
                           <CheckCircle className="h-4 w-4 mr-1" />
                           Valider
                         </Button>
@@ -309,7 +309,7 @@ export default async function PhaseDetailPage({
                   </div>
 
                   {isCompleted && (
-                    <p className="text-sm text-green-500 flex items-center gap-1.5 mt-2">
+                    <p className="text-sm text-primary flex items-center gap-1.5 mt-2">
                       <CheckCircle className="h-4 w-4" />
                       Projet validé ! +{project.xp} XP
                     </p>
@@ -322,9 +322,9 @@ export default async function PhaseDetailPage({
 
         {/* Phase Completion */}
         {phaseData.userProgress.status === 'completed' && (
-          <Card className="border-2 border-green-500 bg-green-500/5">
+          <Card className="border-2 border-primary bg-primary/5">
             <CardHeader className="text-center">
-              <CardTitle className="text-green-500">
+              <CardTitle className="text-primary">
                 Phase terminée ! 🎉
               </CardTitle>
               <CardDescription className="text-center">
@@ -334,7 +334,7 @@ export default async function PhaseDetailPage({
             <CardContent className="text-center">
               <div className="flex justify-center gap-4">
                 <div>
-                  <div className="text-2xl font-bold text-green-500">+100 XP</div>
+                  <div className="text-2xl font-bold text-primary">+100 XP</div>
                   <div className="text-sm text-muted-foreground">Récompense de phase</div>
                 </div>
                 <div>

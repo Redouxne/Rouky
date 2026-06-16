@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, LayoutDashboard, Roadmap, CheckSquare, Trophy, Settings, FileText, X } from 'lucide-react'
+import { Home, LayoutDashboard, Map, CheckSquare, Trophy, Settings, FileText, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface SidebarProps {
@@ -12,7 +12,7 @@ interface SidebarProps {
 const navItems = [
   { name: 'Accueil', href: '/', icon: Home },
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Roadmap', href: '/roadmap', icon: Roadmap },
+  { name: 'Map', href: '/roadmap', icon: Map },
   { name: 'Projets', href: '/projects', icon: CheckSquare },
   { name: 'Progression', href: '/progress', icon: FileText },
   { name: 'Badges', href: '/badges', icon: Trophy },

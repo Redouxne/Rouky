@@ -13,11 +13,11 @@ import {
   Crown,
   Award,
   Users,
-  Run,
+  Footprints,
   CheckSquare,
   LayoutDashboard,
   Brain,
-  Robot,
+  Bot,
   Target,
   FileText,
   Calendar
@@ -26,16 +26,16 @@ import {
 const badgeIcons: Record<string, React.ReactNode> = {
   'footprints': <Users className="h-6 w-6" />,
   'flame': <Flame className="h-6 w-6" />,
-  'bot': <Robot className="h-6 w-6" />,
+  'bot': <Bot className="h-6 w-6" />,
   'code': <LayoutDashboard className="h-6 w-6" />,
   'calculator': <Brain className="h-6 w-6" />,
   'hammer': <Award className="h-6 w-6" />,
   'layout-dashboard': <Target className="h-6 w-6" />,
   'brain': <Brain className="h-6 w-6" />,
-  'robot': <Robot className="h-6 w-6" />,
+  'Bot': <Bot className="h-6 w-6" />,
   'trophy': <Trophy className="h-6 w-6" />,
   'crown': <Crown className="h-6 w-6" />,
-  'run': <Run className="h-6 w-6" />,
+  'Footprints': <Footprints className="h-6 w-6" />,
   'medal': <Medal className="h-6 w-6" />,
   'star': <Star className="h-6 w-6" />,
   'users': <Users className="h-6 w-6" />,
@@ -174,8 +174,8 @@ export default async function BadgesPage() {
                               {badgeIcons[badge.icon] || <Trophy className="h-5 w-5" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-medium text-sm truncate">{badge.title}</h3>
-                              <p className="text-xs text-muted-foreground truncate">{badge.description}</p>
+                              <h3 className="font-medium text-sm tFootprintscate">{badge.title}</h3>
+                              <p className="text-xs text-muted-foreground tFootprintscate">{badge.description}</p>
                             </div>
                           </div>
                           {!isUnlocked && (

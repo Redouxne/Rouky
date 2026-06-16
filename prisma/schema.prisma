@@ -15,17 +15,17 @@ datasource db {
 // ============================================
 
 model User {
-  id        String    @id @default(cuid())
-  name      String
-  email     String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  progress   UserProgress?  @relation("UserToProgress")
-  phaseProgress PhaseProgress[]
-  taskProgress TaskProgress[]
+  id              String            @id @default(cuid())
+  name            String
+  email           String            @unique
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  progress        UserProgress?
+  phaseProgress   PhaseProgress[]
+  taskProgress    TaskProgress[]
   projectProgress ProjectProgress[]
-  activityLogs ActivityLog[]
-  badgeProgress BadgeProgress[]
+  activityLogs    ActivityLog[]
+  badgeProgress   BadgeProgress[]
 }
 
 model UserProgress {
@@ -50,15 +50,15 @@ model UserProgress {
 // ============================================
 
 model PhaseProgress {
-  id           String    @id @default(cuid())
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  phaseId      String
-  status       String    @default("locked") // locked, available, in_progress, completed
-  progressPercent Int    @default(0)
-  completedAt  DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  phaseId         String
+  status          String    @default("locked") // locked, available, in_progress, completed
+  progressPercent Int       @default(0)
+  completedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   @@unique([userId, phaseId])
   @@index([userId])
@@ -66,15 +66,15 @@ model PhaseProgress {
 }
 
 model TaskProgress {
-  id           String    @id @default(cuid())
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  taskId       String
-  completed    Boolean   @default(false)
-  completedAt  DateTime?
-  xpAwarded    Int       @default(0)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId      String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  xpAwarded   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@unique([userId, taskId])
   @@index([userId])
@@ -82,16 +82,16 @@ model TaskProgress {
 }
 
 model ProjectProgress {
-  id           String    @id @default(cuid())
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  projectId    String
-  status       String    @default("not_started") // not_started, in_progress, completed
-  startedAt    DateTime?
-  completedAt  DateTime?
-  xpAwarded    Int       @default(0)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId   String
+  status      String    @default("not_started") // not_started, in_progress, completed
+  startedAt   DateTime?
+  completedAt DateTime?
+  xpAwarded   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@unique([userId, projectId])
   @@index([userId])
@@ -103,14 +103,14 @@ model ProjectProgress {
 // ============================================
 
 model ActivityLog {
-  id         String    @id @default(cuid())
-  userId     String
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date       DateTime  @default(now())
-  type       String    // task_completed, module_completed, phase_completed, project_completed, daily_goal, streak
-  xp         Int       @default(0)
-  metadata   Json?
-  createdAt  DateTime  @default(now())
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime @default(now())
+  type      String // task_completed, module_completed, phase_completed, project_completed, daily_goal, streak
+  xp        Int      @default(0)
+  metadata  Json?
+  createdAt DateTime @default(now())
 
   @@index([userId])
   @@index([date])

@@ -332,11 +332,13 @@ const generateTasks = (phaseId: string, taskTitles: string[]): Task[] => {
 
 const createTasks = (
   phaseId: string,
-  tasks: Array<{ title: string; description: string }>
+  tasks: Array<{ title: string; description: string; resourceHref?: string; resourceLabel?: string }>
 ): Task[] => tasks.map((task, index) => ({
   id: `task-${phaseId}-${index}`,
   title: task.title,
   description: task.description,
+  resourceHref: task.resourceHref,
+  resourceLabel: task.resourceLabel,
   xp: XP_VALUES.task,
 }))
 
@@ -360,6 +362,8 @@ const phase0Tasks = createTasks('0', [
   {
     title: 'Préparer son environnement local',
     description: 'Installer Python, Git, VS Code, terminal, compte GitHub et vérifier que chaque outil fonctionne.',
+    resourceHref: '/tutorials/local-environment',
+    resourceLabel: 'Voir le tuto environnement local',
   },
   {
     title: 'Créer son espace portfolio',

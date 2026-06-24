@@ -381,7 +381,7 @@ export function PhaseDetailClient({ phase, phases }: PhaseDetailClientProps) {
               <CheckSquare className="h-5 w-5" />
               Tâches ({phase.tasks.length})
             </CardTitle>
-            <CardDescription>Chaque case cochée est sauvegardée dans ce navigateur.</CardDescription>
+            <CardDescription>Tâches pratiques à accomplir</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             {phase.tasks.map((task, index) => {
@@ -396,13 +396,23 @@ export function PhaseDetailClient({ phase, phases }: PhaseDetailClientProps) {
                     onCheckedChange={() => toggleTask(task.id)}
                     className="mt-1 data-[state=checked]:border-primary data-[state=checked]:bg-primary"
                   />
-                  <label htmlFor={`task-${phase.id}-${index}`} className="flex-1 cursor-pointer text-sm">
-                    {task.title}
-                    {task.description && (
-                      <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">{task.description}</span>
+                  <div className="flex-1">
+                    <label htmlFor={`task-${phase.id}-${index}`} className="block cursor-pointer text-sm">
+                      {task.title}
+                      {task.description && (
+                        <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">{task.description}</span>
+                      )}
+                      <span className="block text-xs text-muted-foreground">+{task.xp} XP</span>
+                    </label>
+                    {task.resourceHref && (
+                      <Button asChild variant="ghost" size="sm" className="mt-2 h-8 px-2">
+                        <Link href={task.resourceHref}>
+                          <ExternalLink className="mr-1 h-4 w-4" />
+                          {task.resourceLabel || 'Voir la ressource'}
+                        </Link>
+                      </Button>
                     )}
-                    <span className="block text-xs text-muted-foreground">+{task.xp} XP</span>
-                  </label>
+                  </div>
                 </div>
               )
             })}

@@ -70,6 +70,8 @@ export interface Task {
   id: string
   title: string
   description?: string
+  resourceHref?: string
+  resourceLabel?: string
   xp: number
 }
 

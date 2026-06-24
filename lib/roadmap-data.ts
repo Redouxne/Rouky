@@ -37,47 +37,119 @@ const generateId = (prefix: string, index: number) =>
 
 // Phase 0 - Orientation et mentalité
 const phase0Modules: Module[] = [
-  { id: 'module-0-0', title: 'Différence entre AI Engineer, ML Engineer et Data Scientist' },
-  { id: 'module-0-1', title: 'Marché de l’IA en 2026' },
-  { id: 'module-0-2', title: 'Compétences recherchées' },
-  { id: 'module-0-3', title: 'RAG, agents IA, LLMOps, orchestration multi-LLM, sécurité' },
-  { id: 'module-0-4', title: 'Comment utiliser la roadmap selon son niveau' },
+  {
+    id: 'module-0-0',
+    title: 'Comprendre le rôle d’AI Engineer',
+    description: 'Distinguer AI Engineer, ML Engineer, Data Scientist et LLM Engineer à partir de leurs responsabilités, livrables et contraintes produit.',
+  },
+  {
+    id: 'module-0-1',
+    title: 'Cartographier le marché IA 2026',
+    description: 'Identifier les familles de postes, les secteurs qui recrutent, les stacks dominantes et les attentes de niveau junior/intermédiaire.',
+  },
+  {
+    id: 'module-0-2',
+    title: 'Construire son diagnostic personnel',
+    description: 'Évaluer son niveau en code, maths, ML, LLM, produit, cloud et communication pour choisir un parcours réaliste.',
+  },
+  {
+    id: 'module-0-3',
+    title: 'Lire une architecture IA moderne',
+    description: 'Comprendre les blocs RAG, agents, orchestration multi-LLM, vector database, evals, monitoring et sécurité.',
+  },
+  {
+    id: 'module-0-4',
+    title: 'Mettre en place son environnement de travail',
+    description: 'Installer l’outillage minimal : VS Code, Git, GitHub, Python, Node, terminal, gestionnaire de secrets et système de notes.',
+  },
+  {
+    id: 'module-0-5',
+    title: 'Organiser son portfolio public',
+    description: 'Définir une stratégie GitHub/README/LinkedIn pour transformer les exercices en preuves concrètes de compétence.',
+  },
 ]
 
 // Phase 1 - Fondations Python
 const phase1Modules: Module[] = [
-  { id: 'module-1-0', title: 'Variables, types, chaînes, listes, tuples, dictionnaires, sets' },
-  { id: 'module-1-1', title: 'Conditions, boucles, fonctions' },
-  { id: 'module-1-2', title: 'Programmation orientée objet' },
-  { id: 'module-1-3', title: 'Code pythonique' },
-  { id: 'module-1-4', title: 'Fichiers, JSON, CSV' },
-  { id: 'module-1-5', title: 'Gestion d’erreurs' },
-  { id: 'module-1-6', title: 'Logging et debugging' },
-  { id: 'module-1-7', title: 'Performance et mémoire' },
-  { id: 'module-1-8', title: 'NumPy' },
-  { id: 'module-1-9', title: 'Pandas' },
-  { id: 'module-1-10', title: 'Structure de projet' },
-  { id: 'module-1-11', title: 'Type hints' },
-  { id: 'module-1-12', title: 'Tests avec pytest' },
-  { id: 'module-1-13', title: 'Environnements virtuels' },
-  { id: 'module-1-14', title: 'Async/await, asyncio, httpx, aiohttp' },
+  {
+    id: 'module-1-0',
+    title: 'Python moderne et structures de données',
+    description: 'Maîtriser types, listes, dictionnaires, sets, compréhensions, slicing et choix de structure selon le problème.',
+  },
+  {
+    id: 'module-1-1',
+    title: 'Fonctions, modules et interfaces propres',
+    description: 'Écrire des fonctions testables, découper un programme en modules et concevoir des signatures lisibles.',
+  },
+  {
+    id: 'module-1-2',
+    title: 'Programmation orientée objet utile',
+    description: 'Utiliser classes, dataclasses, méthodes, propriétés et composition sans sur-abstraire.',
+  },
+  {
+    id: 'module-1-3',
+    title: 'Fichiers, JSON, CSV et configuration',
+    description: 'Lire, écrire, valider et transformer des données locales avec pathlib, json, csv et variables d’environnement.',
+  },
+  {
+    id: 'module-1-4',
+    title: 'Robustesse : erreurs, logs, debug',
+    description: 'Gérer exceptions, logs structurés, messages d’erreur exploitables et debugging reproductible.',
+  },
+  {
+    id: 'module-1-5',
+    title: 'NumPy et Pandas pour pipelines IA',
+    description: 'Manipuler arrays, DataFrames, agrégations, jointures, nettoyage et feature engineering simple.',
+  },
+  {
+    id: 'module-1-6',
+    title: 'Qualité projet : venv, pyproject, tests, typing',
+    description: 'Créer un dépôt Python propre avec environnement isolé, dépendances, pytest, type hints et README.',
+  },
+  {
+    id: 'module-1-7',
+    title: 'HTTP, APIs et async Python',
+    description: 'Consommer des APIs avec requests/httpx, gérer timeouts/retries et paralléliser des appels avec asyncio.',
+  },
 ]
 
 // Phase 2 - Mathématiques et statistiques
 const phase2Modules: Module[] = [
-  { id: 'module-2-0', title: 'Algèbre linéaire' },
-  { id: 'module-2-1', title: 'Vecteurs, matrices, produit scalaire' },
-  { id: 'module-2-2', title: 'Similarité cosinus' },
-  { id: 'module-2-3', title: 'Normes' },
-  { id: 'module-2-4', title: 'Valeurs propres' },
-  { id: 'module-2-5', title: 'SVD' },
-  { id: 'module-2-6', title: 'Calcul différentiel' },
-  { id: 'module-2-7', title: 'Gradient, Jacobienne, Hessienne' },
-  { id: 'module-2-8', title: 'Probabilités - Théorème de Bayes, Variables aléatoires, Distributions' },
-  { id: 'module-2-9', title: 'Espérance, variance, MLE, MAP' },
-  { id: 'module-2-10', title: 'Entropie, cross-entropy, KL divergence' },
-  { id: 'module-2-11', title: 'Optimisation - Descente de gradient, Adam, RMSProp, SGD' },
-  { id: 'module-2-12', title: 'Régularisation' },
+  {
+    id: 'module-2-0',
+    title: 'Vecteurs, matrices et espaces latents',
+    description: 'Comprendre les objets mathématiques derrière embeddings, features, projections et représentations de documents.',
+  },
+  {
+    id: 'module-2-1',
+    title: 'Distances, normes et similarité cosinus',
+    description: 'Choisir une mesure de proximité, calculer similarité/distance et interpréter leurs limites en recherche IA.',
+  },
+  {
+    id: 'module-2-2',
+    title: 'Décomposition matricielle : PCA et SVD',
+    description: 'Réduire la dimension, expliquer la variance et relier PCA/SVD à la compression et aux embeddings.',
+  },
+  {
+    id: 'module-2-3',
+    title: 'Probabilités et statistiques appliquées',
+    description: 'Manipuler distributions, espérance, variance, corrélation, incertitude, Bayes et intervalles de confiance.',
+  },
+  {
+    id: 'module-2-4',
+    title: 'Fonctions de coût et information',
+    description: 'Comprendre MSE, log-loss, cross-entropy, entropie et KL divergence comme signaux d’apprentissage.',
+  },
+  {
+    id: 'module-2-5',
+    title: 'Gradient et optimisation',
+    description: 'Calculer une dérivée utile, interpréter un gradient et implémenter gradient descent, momentum et Adam simplifié.',
+  },
+  {
+    id: 'module-2-6',
+    title: 'Régularisation et généralisation',
+    description: 'Comprendre L1/L2, bruit, validation, biais-variance et la différence entre apprendre et mémoriser.',
+  },
 ]
 
 // Phase 3 - Machine Learning fondamental
@@ -258,53 +330,111 @@ const generateTasks = (phaseId: string, taskTitles: string[]): Task[] => {
   }))
 }
 
-const phase0Tasks = generateTasks('0', [
-  'Comprendre la différence entre AI Engineer, ML Engineer et Data Scientist',
-  'Analyser le marché de l’IA en 2026 et les tendances',
-  'Identifier les compétences clés recherchées par les employeurs',
-  'Comprendre les concepts RAG, agents IA, LLMOps',
-  'Apprendre l’orchestration multi-LLM et la sécurité',
-  'Évaluer son niveau actuel : débutant, intermédiaire ou avancé',
+const createTasks = (
+  phaseId: string,
+  tasks: Array<{ title: string; description: string }>
+): Task[] => tasks.map((task, index) => ({
+  id: `task-${phaseId}-${index}`,
+  title: task.title,
+  description: task.description,
+  xp: XP_VALUES.task,
+}))
+
+const phase0Tasks = createTasks('0', [
+  {
+    title: 'Comparer 4 métiers IA',
+    description: 'Produire un tableau qui compare AI Engineer, ML Engineer, Data Scientist et LLM Engineer sur missions, stack, livrables et niveau attendu.',
+  },
+  {
+    title: 'Analyser 10 offres AI Engineer',
+    description: 'Extraire les compétences communes, outils cités, niveaux d’expérience demandés et signaux différenciants.',
+  },
+  {
+    title: 'Établir son diagnostic de départ',
+    description: 'Se noter de 1 à 5 sur Python, Git, maths, ML, LLM, cloud, produit et communication, puis identifier 3 priorités.',
+  },
+  {
+    title: 'Dessiner une architecture IA simple',
+    description: 'Schématiser utilisateur, frontend, backend, LLM, base vectorielle, stockage, monitoring et sécurité.',
+  },
+  {
+    title: 'Préparer son environnement local',
+    description: 'Installer Python, Git, VS Code, terminal, compte GitHub et vérifier que chaque outil fonctionne.',
+  },
+  {
+    title: 'Créer son espace portfolio',
+    description: 'Créer un dépôt GitHub principal ou une organisation de dépôts avec README, conventions de nommage et plan de progression.',
+  },
 ])
 
-const phase1Tasks = generateTasks('1', [
-  'Maîtriser les variables, types et structures de données en Python',
-  'Écrire des fonctions avec conditions et boucles',
-  'Implémenter la programmation orientée objet',
-  'Appliquer les bonnes pratiques de code pythonique',
-  'Manipuler des fichiers JSON et CSV',
-  'Gérer les erreurs avec try/except',
-  'Configurer le logging et le debugging',
-  'Optimiser la performance et la mémoire',
-  'Utiliser NumPy pour les calculs numériques',
-  'Manipuler des données avec Pandas',
-  'Structurer un projet Python professionnel',
-  'Ajouter des type hints pour la typage statique',
-  'Écrire des tests avec pytest',
-  'Utiliser des environnements virtuels',
-  'Implémenter async/await avec asyncio',
-  'Faire des appels asynchrones à des API',
+const phase1Tasks = createTasks('1', [
+  {
+    title: 'Écrire 20 exercices Python idiomatiques',
+    description: 'Utiliser listes, dictionnaires, comprehensions, fonctions et exceptions sur de petits problèmes réalistes.',
+  },
+  {
+    title: 'Créer un parser JSON/CSV réutilisable',
+    description: 'Lire plusieurs fichiers, valider leur structure, normaliser les champs et exporter un fichier propre.',
+  },
+  {
+    title: 'Structurer un mini-package Python',
+    description: 'Organiser src, tests, README, pyproject ou requirements, configuration et point d’entrée CLI.',
+  },
+  {
+    title: 'Ajouter typing, logs et erreurs propres',
+    description: 'Ajouter type hints, logs utiles, exceptions explicites et messages exploitables par un utilisateur.',
+  },
+  {
+    title: 'Écrire une suite pytest minimale',
+    description: 'Couvrir les fonctions critiques avec tests unitaires, cas limites et fixtures simples.',
+  },
+  {
+    title: 'Nettoyer un dataset avec Pandas',
+    description: 'Gérer valeurs manquantes, types, doublons, colonnes inutiles et produire un résumé statistique.',
+  },
+  {
+    title: 'Comparer traitement synchrone et async',
+    description: 'Appeler une API ou une fausse API plusieurs fois, mesurer le temps sync vs async et expliquer l’écart.',
+  },
+  {
+    title: 'Documenter un dépôt prêt à être corrigé',
+    description: 'Rédiger README, installation, usage, tests, limites connues et exemples de commandes.',
+  },
 ])
 
-const phase2Tasks = generateTasks('2', [
-  'Comprendre l’algèbre linéaire appliquée à l’IA',
-  'Manipuler vecteurs, matrices et produit scalaire',
-  'Calculer la similarité cosinus entre vecteurs',
-  'Appliquer les normes (L1, L2, etc.)',
-  'Calculer valeurs propres et vecteurs propres',
-  'Implémenter la SVD',
-  'Comprendre le calcul différentiel',
-  'Calculer gradients, Jacobienne et Hessienne',
-  'Maîtriser les concepts de probabilités',
-  'Appliquer le théorème de Bayes',
-  'Comprendre les distributions de probabilité',
-  'Calculer espérance et variance',
-  'Implémenter MLE et MAP',
-  'Calculer entropie, cross-entropy, divergence KL',
-  'Comprendre les algorithmes d’optimisation',
-  'Implémenter la descente de gradient',
-  'Configurer Adam, RMSProp, SGD',
-  'Appliquer la régularisation (L1, L2)',
+const phase2Tasks = createTasks('2', [
+  {
+    title: 'Implémenter produit scalaire, normes et cosinus',
+    description: 'Coder les opérations avec NumPy puis vérifier les résultats sur des exemples simples.',
+  },
+  {
+    title: 'Créer un mini moteur de similarité',
+    description: 'Transformer des textes en vecteurs simples, classer les résultats par similarité et analyser les erreurs.',
+  },
+  {
+    title: 'Visualiser PCA sur un dataset réel',
+    description: 'Réduire un dataset à 2 dimensions, afficher les points et expliquer la variance conservée.',
+  },
+  {
+    title: 'Simuler des distributions de probabilité',
+    description: 'Générer normale, binomiale et uniforme, puis calculer moyenne, variance et histogrammes.',
+  },
+  {
+    title: 'Appliquer Bayes sur un cas métier',
+    description: 'Résoudre un problème de diagnostic, fraude ou classification avec probabilités conditionnelles.',
+  },
+  {
+    title: 'Comparer MSE, log-loss et cross-entropy',
+    description: 'Calculer les pertes sur prédictions bonnes/mauvaises et expliquer leur comportement.',
+  },
+  {
+    title: 'Coder une descente de gradient from scratch',
+    description: 'Optimiser une fonction simple, tracer la trajectoire et expérimenter avec le learning rate.',
+  },
+  {
+    title: 'Tester l’effet de la régularisation',
+    description: 'Comparer un modèle sans régularisation, L1 et L2 sur un petit problème synthétique.',
+  },
 ])
 
 const phase3Tasks = generateTasks('3', [
@@ -597,7 +727,8 @@ const createProject = (
   objective: string,
   suggestedStack: string[],
   deliverables: string[],
-  validationCriteria: string[]
+  validationCriteria: string[],
+  requiresGithubRepo = false
 ): Project => ({
   id: `project-${phaseId}-${difficulty}-${index}`,
   title,
@@ -607,6 +738,7 @@ const createProject = (
   suggestedStack,
   deliverables,
   validationCriteria,
+  requiresGithubRepo,
   xp: XP_VALUES.project[difficulty],
 })
 
@@ -616,34 +748,63 @@ const phase0Projects: Record<ProjectDifficulty, Project> = {
     '0',
     'easy',
     0,
-    'Établir son plan d’apprentissage personnel',
-    'Créer un document structuré avec vos objectifs, ressources et timeline.',
-    'Définir une feuille de route personnelle pour votre parcours IA',
-    ['Notion', 'Google Docs', 'Markdown'],
-    ['Un document complet avec objectifs SMART', 'Timeline réaliste', 'Liste de ressources'],
-    ['Plan clair et structuré', 'Objectifs mesurables', 'Timeline réaliste']
+    'Diagnostic personnel AI Engineer',
+    'Créer un état des lieux honnête de son niveau, de ses objectifs et de ses contraintes de temps.',
+    'Transformer la roadmap générale en plan personnel actionnable sur 30 jours',
+    ['Markdown', 'Notion', 'Google Docs'],
+    [
+      'Document de diagnostic avec niveau actuel par compétence',
+      'Objectifs SMART sur 30 jours',
+      'Planning hebdomadaire réaliste',
+      'Liste de ressources prioritaires',
+    ],
+    [
+      'Le niveau de départ est explicite et argumenté',
+      'Les objectifs sont mesurables',
+      'Le planning tient compte des contraintes réelles',
+    ]
   ),
   medium: createProject(
     '0',
     'medium',
     0,
-    'Analyser 5 offres d’emploi AI Engineer',
-    'Étudier des offres réelles pour identifier les compétences demandées.',
-    'Identifier les compétences clés et les lacunes à combler',
-    ['LinkedIn', 'Glassdoor', 'Excel/Sheets'],
-    ['Analyse comparative des offres', 'Liste des compétences techniques requises', 'Identification des gaps personnels'],
-    ['5 offres analysées', 'Synthèse des compétences communes', 'Plan pour combler les lacunes']
+    'Analyse de marché AI Engineer',
+    'Étudier des offres réelles pour comprendre ce que les entreprises demandent vraiment.',
+    'Identifier les compétences récurrentes et les écarts à combler avant de coder',
+    ['LinkedIn', 'Welcome to the Jungle', 'Google Sheets', 'Markdown'],
+    [
+      'Tableau comparatif de 10 offres',
+      'Synthèse des compétences techniques et produit',
+      'Top 10 des outils les plus cités',
+      'Plan de réduction des gaps personnels',
+    ],
+    [
+      'Au moins 10 offres analysées',
+      'Les compétences sont regroupées par catégories',
+      'Les décisions de roadmap sont justifiées par les offres',
+    ]
   ),
   hard: createProject(
     '0',
     'hard',
     0,
-    'Concevoir une carte mentale complète du métier d’ingénieur IA',
-    'Créer une visualisation complète des compétences, outils et responsabilités.',
-    'Visualiser l’étendue du rôle d’AI Engineer',
-    ['XMind', 'Miro', 'MindManager', 'Draw.io'],
-    ['Carte mentale structurée', 'Légende claire', 'Export en image'],
-    ['Couverture complète du métier', 'Structure logique', 'Visuel professionnel']
+    'Portfolio GitHub initial',
+    'Préparer un dépôt public qui servira de fil rouge à tous les projets Rouky.',
+    'Créer une base professionnelle que Rouky pourra inspecter plus tard pour suivre la progression',
+    ['Git', 'GitHub', 'Markdown', 'Mermaid'],
+    [
+      'Dépôt GitHub public',
+      'README principal avec objectif, roadmap et règles de travail',
+      'Dossier docs avec diagnostic, analyse de marché et architecture IA cible',
+      'Schéma Mermaid d’une architecture IA moderne',
+    ],
+    [
+      'Le dépôt est public et lisible',
+      'Le README explique clairement le parcours',
+      'Les documents sont versionnés',
+      'Le schéma couvre frontend, backend, LLM, données, observabilité et sécurité',
+    ],
+    true
   ),
 }
 
@@ -653,34 +814,71 @@ const phase1Projects: Record<ProjectDifficulty, Project> = {
     '1',
     'easy',
     0,
-    'CLI IA en Python',
-    'Créer un outil en ligne de commande qui interagit avec une API IA simple.',
-    'Développer un CLI fonctionnel avec gestion d’erreurs',
-    ['Python', 'Click/Argparse', 'requests'],
-    ['Code source commenté', 'Documentation', 'Package installable'],
-    ['CLI fonctionnel', 'Gestion d’erreurs robuste', 'Code propre']
+    'Data Cleaner CLI',
+    'Créer un outil en ligne de commande qui nettoie un CSV et produit un rapport de qualité.',
+    'Prouver la maîtrise de Python, fichiers, erreurs, logs et structure de projet',
+    ['Python', 'argparse ou Typer', 'Pandas', 'pytest'],
+    [
+      'Dépôt GitHub public',
+      'CLI exécutable avec options input/output',
+      'Rapport Markdown ou JSON sur les valeurs manquantes, doublons et types',
+      'README avec installation, usage et exemples',
+      'Tests pytest sur les fonctions principales',
+    ],
+    [
+      'Le CLI fonctionne sur un CSV inconnu',
+      'Les erreurs utilisateur sont propres',
+      'Le code est découpé en fonctions testables',
+      'Les tests se lancent avec une commande documentée',
+    ],
+    true
   ),
   medium: createProject(
     '1',
     'medium',
     0,
-    'Appel asynchrone de plusieurs API IA',
-    'Créer un script qui appelle plusieurs API IA en parallèle et aggregate les résultats.',
-    'Optimiser les appels API avec async/await',
-    ['Python', 'asyncio', 'aiohttp/httpx'],
-    ['Script fonctionnel', 'Benchmark de performance', 'Documentation'],
-    ['Appels parallèles fonctionnels', 'Aggregation des résultats', 'Gestion des erreurs']
+    'Async API Benchmark',
+    'Créer un benchmark qui compare appels synchrones et asynchrones sur une API publique ou simulée.',
+    'Comprendre concrètement timeouts, retries, concurrence et mesure de performance',
+    ['Python', 'asyncio', 'httpx', 'rich', 'pytest'],
+    [
+      'Dépôt GitHub public',
+      'Script sync et script async comparables',
+      'Tableau de résultats temps moyen, erreurs et throughput',
+      'Gestion de timeout, retry et limite de concurrence',
+      'README expliquant quand utiliser async',
+    ],
+    [
+      'Le benchmark est reproductible',
+      'Les résultats sont affichés clairement',
+      'La limite de concurrence est configurable',
+      'Le code ne fuit pas de secrets API',
+    ],
+    true
   ),
   hard: createProject(
     '1',
     'hard',
     0,
-    'Pipeline de données production-grade',
-    'Concevoir un pipeline robuste pour traiter des données en streaming.',
-    'Créer un pipeline scalable et maintenable',
-    ['Python', 'Apache Kafka/RabbitMQ', 'Docker', 'Kubernetes (optionnel)'],
-    ['Architecture documentée', 'Code du pipeline', 'Tests unitaires', 'Configuration Docker'],
-    ['Pipeline fonctionnel', 'Gestion des erreurs', 'Scalabilité', 'Monitoring basique']
+    'Pipeline Python production-ready',
+    'Construire un pipeline local qui ingère des fichiers, valide les données, transforme et exporte un dataset propre.',
+    'Livrer un projet Python proche d’un standard professionnel',
+    ['Python', 'Pandas', 'Pydantic', 'pytest', 'Docker', 'Makefile'],
+    [
+      'Dépôt GitHub public',
+      'Architecture src/tests/data/docs',
+      'Validation des entrées avec Pydantic ou logique équivalente',
+      'Commande unique pour lancer pipeline et tests',
+      'Dockerfile ou documentation d’environnement',
+      'Rapport final avec limites et améliorations possibles',
+    ],
+    [
+      'Le projet s’installe sans étape implicite',
+      'Le pipeline gère les fichiers invalides',
+      'Les tests couvrent validation et transformation',
+      'Le README permet à Rouky de reproduire l’exécution',
+    ],
+    true
   ),
 }
 
@@ -690,34 +888,67 @@ const phase2Projects: Record<ProjectDifficulty, Project> = {
     '2',
     'easy',
     0,
-    'Moteur de recherche par similarité cosinus',
-    'Implémenter un système qui trouve des documents similaires basés sur des embeddings.',
-    'Comprendre et implémenter la recherche vectorielle',
-    ['Python', 'NumPy', 'scikit-learn'],
-    ['Code du moteur de recherche', 'Jeu de données test', 'Évaluation des résultats'],
-    ['Similarité cosinus correctement implémentée', 'Recherche fonctionnelle', 'Évaluation quantitative']
+    'Recherche vectorielle jouet',
+    'Créer un moteur de recherche minimal qui classe de courts documents par similarité cosinus.',
+    'Relier algèbre linéaire, représentations vectorielles et recherche sémantique',
+    ['Python', 'NumPy', 'scikit-learn', 'Jupyter Notebook'],
+    [
+      'Notebook ou script reproductible',
+      'Dataset de 30 documents courts',
+      'Implémentation de similarité cosinus',
+      'Exemples de 5 requêtes avec top 5 résultats',
+    ],
+    [
+      'Les scores de similarité sont corrects',
+      'Les résultats sont triés et interprétés',
+      'Les limites de la méthode sont expliquées',
+    ]
   ),
   medium: createProject(
     '2',
     'medium',
     0,
-    'Visualiseur de descente de gradient',
-    'Créer une visualisation interactive de la descente de gradient.',
-    'Visualiser le processus d’optimisation',
-    ['Python', 'Matplotlib/Plotly', 'Jupyter Notebook'],
-    ['Visualisation interactive', 'Code commenté', 'Explications'],
-    ['Visualisation claire', 'Interactivité', 'Explications pédagogiques']
+    'Gradient Descent Lab',
+    'Créer un laboratoire visuel pour comprendre l’effet du learning rate, du bruit et de la régularisation.',
+    'Rendre visible le comportement d’un optimiseur sur une fonction simple',
+    ['Python', 'NumPy', 'Matplotlib ou Plotly', 'Jupyter Notebook'],
+    [
+      'Dépôt GitHub public',
+      'Notebook explicatif',
+      'Implémentation from scratch de gradient descent',
+      'Graphiques comparant plusieurs learning rates',
+      'Section d’analyse des échecs : divergence, lenteur, oscillations',
+    ],
+    [
+      'Le gradient est calculé ou dérivé explicitement',
+      'Les visualisations permettent de comparer les paramètres',
+      'Les conclusions sont reliées à l’entraînement de modèles ML',
+    ],
+    true
   ),
   hard: createProject(
     '2',
     'hard',
     0,
-    'Réseau de neurones from scratch en NumPy',
-    'Implémenter un MLP complet sans framework.',
-    'Comprendre les fondements des réseaux de neurones',
-    ['Python', 'NumPy'],
-    ['Code du MLP', 'Tests sur dataset simple', 'Documentation'],
-    ['Forward pass correct', 'Backpropagation fonctionnelle', 'Précision acceptable sur test']
+    'MLP NumPy from scratch',
+    'Implémenter un petit réseau de neurones sans framework deep learning pour classifier un dataset simple.',
+    'Comprendre forward pass, loss, backpropagation, régularisation et évaluation',
+    ['Python', 'NumPy', 'scikit-learn datasets', 'pytest', 'Matplotlib'],
+    [
+      'Dépôt GitHub public',
+      'Implémentation MLP sans PyTorch/TensorFlow',
+      'Fonctions forward, loss, backward et update',
+      'Courbes loss/accuracy',
+      'Tests sur dimensions et gradients simples',
+      'README expliquant les choix mathématiques',
+    ],
+    [
+      'Le modèle apprend mieux que le hasard',
+      'Le code sépare modèle, entraînement et évaluation',
+      'Les formes de tenseurs sont documentées',
+      'Rouky pourra relancer l’entraînement depuis le README',
+    ],
+    true
   ),
 }
 

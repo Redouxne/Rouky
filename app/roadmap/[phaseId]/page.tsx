@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Checkbox } from '@/components/ui/checkbox'
-import { getCurrentUserId, getPhaseProgress, toggleTaskProgress, startProject, completeProject } from '@/lib/progress'
+import { getCurrentUserId, getPhaseProgress } from '@/lib/progress'
 import { phases, roadmap } from '@/lib/roadmap-data'
 import { formatNumber, getDifficultyColor, getDifficultyLabel, getStatusColor } from '@/lib/utils'
 import { 
@@ -41,25 +41,6 @@ export default async function PhaseDetailPage({
 
   const isCompleted = phaseData.userProgress.status === 'completed'
   const progressPercent = phaseData.userProgress.progressPercent
-
-  // Server actions for task toggling
-  async function handleToggleTask(taskId: string) {
-    'use server'
-    const currentUserId = await getCurrentUserId()
-    await toggleTaskProgress(currentUserId, taskId, params.phaseId)
-  }
-
-  async function handleStartProject(projectId: string) {
-    'use server'
-    const currentUserId = await getCurrentUserId()
-    await startProject(currentUserId, projectId)
-  }
-
-  async function handleCompleteProject(projectId: string) {
-    'use server'
-    const currentUserId = await getCurrentUserId()
-    await completeProject(currentUserId, projectId)
-  }
 
   return (
     <div className="container mx-auto max-w-4xl">
@@ -160,12 +141,19 @@ export default async function PhaseDetailPage({
                 {phase.modules.map((module) => (
                   <div 
                     key={module.id} 
-                    className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted/80 transition-colors"
+                    className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted/80 transition-colors"
                   >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-muted">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
                       <BookOpen className="h-4 w-4 text-muted-foreground" />
                     </div>
-                    <span className="flex-1 text-sm font-medium">{module.title}</span>
+                    <div className="flex-1">
+                      <span className="text-sm font-medium">{module.title}</span>
+                      {module.description && (
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                          {module.description}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -186,7 +174,6 @@ export default async function PhaseDetailPage({
           </CardHeader>
           <CardContent className="space-y-3">
             {phase.tasks.map((task, index) => {
-              // For server components, we need to create a form for each action
               return (
                 <div 
                   key={task.id} 
@@ -203,26 +190,25 @@ export default async function PhaseDetailPage({
                     className="flex-1 text-sm cursor-pointer"
                   >
                     {task.title}
+                    {task.description && (
+                      <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                        {task.description}
+                      </span>
+                    )}
                     <span className="block text-xs text-muted-foreground">
                       +{task.xp} XP
                     </span>
                   </label>
-                  
-                  {/* Task toggle form */}
-                  <form 
-                    action={handleToggleTask.bind(null, task.id)} 
-                    className="ml-auto"
+                  <Button 
+                    type="button" 
+                    variant="ghost" 
+                    size="icon"
+                    className="ml-auto h-8 w-8"
+                    disabled
+                    title="Validation bientôt disponible"
                   >
-                    <Button 
-                      type="submit" 
-                      variant="ghost" 
-                      size="icon"
-                      className="h-8 w-8"
-                      disabled={phaseData.userProgress.status === 'locked'}
-                    >
-                      <CheckSquare className="h-4 w-4" />
-                    </Button>
-                  </form>
+                    <CheckSquare className="h-4 w-4" />
+                  </Button>
                 </div>
               )
             })}
@@ -242,8 +228,6 @@ export default async function PhaseDetailPage({
           </CardHeader>
           <CardContent className="space-y-4">
             {Object.entries(phase.projects).map(([difficulty, project]) => {
-              // Get project progress from phase data
-              const projectProgress = phaseData.projects[difficulty as 'easy' | 'medium' | 'hard']
               const isStarted = false
               const isCompleted = false
 
@@ -272,25 +256,44 @@ export default async function PhaseDetailPage({
                     <p className="text-sm text-muted-foreground">
                       <strong>Stack suggérée:</strong> {project.suggestedStack.join(', ')}
                     </p>
+                    {project.requiresGithubRepo && (
+                      <p className="inline-flex rounded-[2px] border border-primary/35 bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
+                        Dépôt GitHub requis pour la future validation par Rouky
+                      </p>
+                    )}
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <div>
+                        <strong className="text-sm text-muted-foreground">Livrables</strong>
+                        <ul className="mt-1 list-disc list-inside space-y-0.5 text-xs text-muted-foreground">
+                          {project.deliverables.map((deliverable) => (
+                            <li key={deliverable}>{deliverable}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <strong className="text-sm text-muted-foreground">Critères de validation</strong>
+                        <ul className="mt-1 list-disc list-inside space-y-0.5 text-xs text-muted-foreground">
+                          {project.validationCriteria.map((criterion) => (
+                            <li key={criterion}>{criterion}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="flex gap-2">
                     {!isStarted && !isCompleted && (
-                      <form action={handleStartProject.bind(null, project.id)}>
-                        <Button type="submit" size="sm" variant="outline">
-                          <PlayCircle className="h-4 w-4 mr-1" />
-                          Commencer
-                        </Button>
-                      </form>
+                      <Button type="button" size="sm" variant="outline" disabled>
+                        <PlayCircle className="h-4 w-4 mr-1" />
+                        Commencer
+                      </Button>
                     )}
                     
                     {isStarted && !isCompleted && (
-                      <form action={handleCompleteProject.bind(null, project.id)}>
-                        <Button type="submit" size="sm">
-                          <CheckCircle className="h-4 w-4 mr-1" />
-                          Valider
-                        </Button>
-                      </form>
+                      <Button type="button" size="sm" disabled>
+                        <CheckCircle className="h-4 w-4 mr-1" />
+                        Valider
+                      </Button>
                     )}
 
                     {isCompleted && (
@@ -321,7 +324,7 @@ export default async function PhaseDetailPage({
         </Card>
 
         {/* Phase Completion */}
-        {phaseData.userProgress.status === 'completed' && (
+        {isCompleted && (
           <Card className="border-2 border-primary bg-primary/5">
             <CardHeader className="text-center">
               <CardTitle className="text-primary">

@@ -8,13 +8,19 @@ import type {
 const isDatabaseUnavailable = (error: unknown) => {
   const code = (error as { code?: string })?.code
   const message = error instanceof Error ? error.message : ''
+  const normalizedMessage = message.toLowerCase()
 
   return (
+    code?.startsWith('P10') ||
     code === 'P2021' ||
-    code === 'P1001' ||
-    code === 'P1012' ||
-    message.includes('DATABASE_URL') ||
-    message.includes('does not exist')
+    code === 'P2022' ||
+    normalizedMessage.includes('database_url') ||
+    normalizedMessage.includes('does not exist') ||
+    normalizedMessage.includes('can\'t reach database') ||
+    normalizedMessage.includes('relation') ||
+    normalizedMessage.includes('table') ||
+    normalizedMessage.includes('prepared statement') ||
+    normalizedMessage.includes('pgbouncer')
   )
 }
 

@@ -138,6 +138,12 @@ export default async function ProjectsPage() {
                 <CardContent className="space-y-3">
                   <p className="text-sm text-muted-foreground">{project.description}</p>
 
+                  {project.requiresGithubRepo && (
+                    <div className="inline-flex items-center rounded-[2px] border border-primary/35 bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
+                      Dépôt GitHub requis pour validation Rouky
+                    </div>
+                  )}
+
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-muted-foreground">Objectif</span>
@@ -145,7 +151,7 @@ export default async function ProjectsPage() {
                     <p className="text-sm bg-muted/50 p-2 rounded">{project.objective}</p>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-2">
+                  <div className="grid md:grid-cols-3 gap-2">
                     <div className="text-xs">
                       <strong className="text-muted-foreground">Stack suggérée:</strong>
                       <div className="flex flex-wrap gap-1 mt-1">
@@ -161,6 +167,14 @@ export default async function ProjectsPage() {
                       <ul className="list-disc list-inside mt-1 space-y-0.5">
                         {project.deliverables.map((deliverable, index) => (
                           <li key={index} className="text-muted-foreground">{deliverable}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="text-xs">
+                      <strong className="text-muted-foreground">Validation:</strong>
+                      <ul className="list-disc list-inside mt-1 space-y-0.5">
+                        {project.validationCriteria.map((criterion, index) => (
+                          <li key={index} className="text-muted-foreground">{criterion}</li>
                         ))}
                       </ul>
                     </div>

@@ -86,6 +86,7 @@ export interface Project {
   suggestedStack: string[]
   deliverables: string[]
   validationCriteria: string[]
+  requiresGithubRepo?: boolean
   xp: number
 }
 

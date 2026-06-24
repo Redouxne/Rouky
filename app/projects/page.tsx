@@ -188,9 +188,11 @@ export default async function ProjectsPage() {
                           Voir la phase
                         </Link>
                       </Button>
-                      <Button size="sm" variant="ghost">
-                        <PlayCircle className="h-4 w-4 mr-1" />
-                        Commencer
+                      <Button size="sm" variant="ghost" asChild>
+                        <Link href={`/roadmap/${phase.id}`}>
+                          <PlayCircle className="h-4 w-4 mr-1" />
+                          Commencer
+                        </Link>
                       </Button>
                     </div>
                     <span className="text-sm font-medium">+{project.xp} XP</span>

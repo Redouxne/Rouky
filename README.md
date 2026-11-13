@@ -1,6 +1,6 @@
 # Rouky
 
-Parcours d’apprentissage de l’ingénierie IA avec 18 phases, 254 tâches et 54 projets.
+Parcours d’apprentissage de l’ingénierie IA avec 18 phases, un Capstone final, des exercices et trois projets par étape.
 
 ## V1 livrée
 
@@ -60,4 +60,6 @@ Lier le projet à un PostgreSQL durable, ajouter `DATABASE_URL` et `AUTH_SECRET`
 
 ## Contenu
 
-Les phases 0 à 2 et leurs neuf projets ont des consignes, livrables et critères détaillés. Les autres phases fournissent la structure du parcours ; leurs tâches et projets devront être enrichis progressivement. Le Capstone et la correction automatique restent hors de la V1.
+Les 18 phases et le Capstone disposent de modules, consignes de tâches, ressources officielles, livrables et critères d’autoévaluation. Les phases avancées abordent notamment MCP (version 2026-07-28, outils, ressources, prompts, autorisation), workflows agentiques (outils, limites, reprise, traces, approbation humaine) et OCR (PDF natifs et scannés, mise en page, CER/WER, revue humaine). Le Capstone est accessible après validation de la phase 17.
+
+Le programme a été revu en novembre 2026. Les ressources externes restent susceptibles d’évoluer : vérifier leur version avant un nouvel exercice. La validation automatique du code et la revue par un tiers ne sont pas disponibles ; les projets sont terminés par attestation manuelle de l’apprenant.

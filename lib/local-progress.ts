@@ -180,7 +180,7 @@ export const getRoadmapSummary = (phases: Phase[], progress: LocalProgressState)
     totalProgressPercent,
     totalTasksCompleted,
     totalTasks,
-    isCapstoneUnlocked: completedPhases >= Math.ceil(phases.length / 2),
+    isCapstoneUnlocked: completedPhases >= phases.length - 1,
     phases: phaseSummaries,
   }
 }

@@ -4,7 +4,10 @@ import { prisma } from '@/lib/prisma'
 export const runtime = 'nodejs'
 export async function GET() {
   try { return NextResponse.json({ user: await currentUser() }) }
-  catch { return NextResponse.json({ error: 'Service indisponible' }, { status: 503 }) }
+  catch (error) {
+    console.error('Auth GET failed', error instanceof Error ? error.name : typeof error, (error as { code?: string })?.code)
+    return NextResponse.json({ error: 'Service indisponible' }, { status: 503 })
+  }
 }
 export async function POST(request: NextRequest) {
   try {
@@ -26,5 +29,8 @@ export async function POST(request: NextRequest) {
     } else return NextResponse.json({ error: 'Action invalide' }, { status: 400 })
     setSession(user.id)
     return NextResponse.json({ user: { id: user.id, name: user.name, email: user.email } })
-  } catch { return NextResponse.json({ error: 'Service indisponible' }, { status: 503 }) }
+  } catch (error) {
+    console.error('Auth POST failed', error instanceof Error ? error.name : typeof error, (error as { code?: string })?.code)
+    return NextResponse.json({ error: 'Service indisponible' }, { status: 503 })
+  }
 }

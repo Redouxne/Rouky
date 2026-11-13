@@ -111,14 +111,14 @@ export const dynamic = 'force-dynamic'
 
 export default function LocalEnvironmentTutorialPage() {
   return (
-    <div className="container mx-auto max-w-5xl">
+    <div className="mx-auto max-w-5xl pb-12">
       <div className="space-y-8">
         <div className="space-y-3">
           <Link href="/roadmap/phase-0" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
             ← Retour à la phase 0
           </Link>
           <div>
-            <h1 className="text-3xl font-bold">Préparer son environnement local</h1>
+            <p className="eyebrow">Le premier atelier</p><h1 className="page-title mt-3">Préparer son environnement local<span className="text-primary">.</span></h1>
             <p className="mt-2 max-w-3xl text-muted-foreground">
               Installe et vérifie les outils minimum avant les projets Python, data, web et IA.
             </p>

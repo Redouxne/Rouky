@@ -10,11 +10,11 @@ import { getPhaseSummary, getProjectsForPhase, getProjectProgress, isGithubUrlVa
 import type { Phase, Project } from '@/types/roadmap'
 
 export function PhaseDetailClient({ phase, phases }: { phase: Phase; phases: Phase[] }) {
-  const { progress, user, loading, act } = useProgress()
+  const { progress, loading, act } = useProgress()
   const summary = getPhaseSummary(phase, phases, progress)
   const previous = phases.find(item => item.phaseNumber === phase.phaseNumber - 1)
   const next = phases.find(item => item.phaseNumber === phase.phaseNumber + 1)
-  const disabled = !user || loading || !summary.isUnlocked || summary.status === 'completed'
+  const disabled = loading || !summary.isUnlocked || summary.status === 'completed'
 
   return <div className="mx-auto max-w-7xl space-y-8 pb-12">
     <Link href="/roadmap" className="inline-flex items-center gap-2 text-xs font-semibold text-primary hover:underline"><ArrowLeft className="h-4 w-4" /> Retour à la roadmap</Link>
@@ -38,7 +38,7 @@ export function PhaseDetailClient({ phase, phases }: { phase: Phase; phases: Pha
         {phase.resources?.map(resource => <a key={resource.href} href={resource.href} target="_blank" rel="noreferrer" className="flex items-center justify-between gap-2 border-b border-border pb-2 hover:text-primary">{resource.label}<ExternalLink className="h-3.5 w-3.5 shrink-0" /></a>)}
         <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories" target="_blank" rel="noreferrer" className="flex items-center justify-between gap-2 hover:text-primary">Créer un dépôt GitHub <ExternalLink className="h-3.5 w-3.5 shrink-0" /></a>
       </div></div>
-      <div className="sketch-panel p-5"><p className="eyebrow">Validation</p><h2 className="mt-2 text-2xl font-semibold">Passer au chapitre suivant</h2><p className="mt-3 text-xs leading-6 text-muted-foreground">Terminez tous les exercices et autoévaluez un projet. Rouky ne corrige pas le code automatiquement.</p><Button className="mt-5 w-full" disabled={!user || loading || !summary.canValidatePhase || summary.status === 'completed'} onClick={() => void act({ type: 'phase_validate', phaseId: phase.id })}>{summary.status === 'completed' ? 'Phase validée' : 'Valider la phase'}</Button>{summary.status === 'completed' && next && <Button asChild variant="outline" className="mt-2 w-full"><Link href={`/roadmap/${next.id}`}>Phase {next.phaseNumber} <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>}</div></aside>
+      <div className="sketch-panel p-5"><p className="eyebrow">Validation</p><h2 className="mt-2 text-2xl font-semibold">Passer au chapitre suivant</h2><p className="mt-3 text-xs leading-6 text-muted-foreground">Terminez tous les exercices et autoévaluez un projet. Rouky ne corrige pas le code automatiquement.</p><Button className="mt-5 w-full" disabled={loading || !summary.canValidatePhase || summary.status === 'completed'} onClick={() => void act({ type: 'phase_validate', phaseId: phase.id })}>{summary.status === 'completed' ? 'Phase validée' : 'Valider la phase'}</Button>{summary.status === 'completed' && next && <Button asChild variant="outline" className="mt-2 w-full"><Link href={`/roadmap/${next.id}`}>Phase {next.phaseNumber} <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>}</div></aside>
     </div>
   </div>
 }

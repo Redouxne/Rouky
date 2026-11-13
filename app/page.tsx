@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 
 export default function HomePage() {
-  const { progress, user } = useProgress()
+  const { progress } = useProgress()
   const summary = getRoadmapSummary(phases, progress)
   const next = summary.phases.find(item => item.summary.status === 'in_progress' || item.summary.status === 'available')
 
@@ -22,10 +22,10 @@ export default function HomePage() {
           <h1 className="max-w-2xl text-5xl font-semibold sm:text-6xl lg:text-[4.5rem]">Apprenez l’IA.<br /><em className="font-normal text-primary">Construisez pour de vrai.</em></h1>
           <p className="mt-6 max-w-xl text-base leading-8 text-muted-foreground">Un chemin clair, du premier script Python aux systèmes IA en production. Chaque étape mène à un projet concret et documenté.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg"><Link href={user ? next ? `/roadmap/${next.phase.id}` : '/roadmap' : '/account'}>{user ? 'Continuer mon parcours' : 'Commencer le parcours'} <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+            <Button asChild size="lg"><Link href={next ? `/roadmap/${next.phase.id}` : '/roadmap'}>{summary.totalTasksCompleted ? 'Continuer mon parcours' : 'Commencer le parcours'} <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
             <Button asChild size="lg" variant="outline"><Link href="/roadmap">Voir les étapes</Link></Button>
           </div>
-          <p className="mt-8 border-t border-border pt-5 text-xs text-muted-foreground">À votre rythme · progression sauvegardée · projets sur GitHub</p>
+          <p className="mt-8 border-t border-border pt-5 text-xs text-muted-foreground">À votre rythme · progression sauvegardée dans ce navigateur · projets sur GitHub</p>
         </div>
         <div className="relative flex h-[280px] items-end justify-center overflow-hidden sm:h-[390px] lg:h-full lg:min-h-[500px]">
           <div className="absolute inset-x-8 bottom-8 h-48 rounded-full bg-[#e8e0d0]/50 blur-3xl" aria-hidden="true" />
@@ -41,7 +41,7 @@ export default function HomePage() {
       </div>)}
     </section>
 
-    {user && <section className="sketch-panel flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+    {summary.totalTasksCompleted > 0 && <section className="sketch-panel flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
       <div className="flex-1"><p className="eyebrow">Votre carnet de route</p><h2 className="mt-2 text-3xl font-semibold">Vous avez déjà parcouru {summary.totalProgressPercent}% du chemin.</h2><p className="mt-2 text-sm text-muted-foreground">{summary.completedPhases} phases validées · {summary.totalTasksCompleted} exercices terminés</p><Progress className="mt-5 max-w-xl" value={summary.totalProgressPercent} /></div>
       <Button asChild variant="outline"><Link href="/dashboard">Ouvrir mon tableau de bord <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
     </section>}

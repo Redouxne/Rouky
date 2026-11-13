@@ -4,18 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/prisma-generate.js && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts",
-    "test:e2e": "tsx tests/flow.e2e.ts",
-    "db:generate": "node scripts/prisma-generate.js",
-    "db:push": "node scripts/db-push.js",
-    "db:studio": "prisma studio"
+    "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.7.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "lucide-react": "^0.294.0",
@@ -34,7 +29,6 @@
     "eslint": "^8.56.0",
     "eslint-config-next": "14.0.4",
     "postcss": "^8.4.33",
-    "prisma": "^5.7.0",
     "tailwindcss": "^3.3.6",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"

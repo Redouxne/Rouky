@@ -108,6 +108,7 @@ export interface Phase {
   tasks: Task[]
   projects: Record<ProjectDifficulty, Project>
   category: string
+  resources?: Array<{ label: string; href: string }>
 }
 
 // ============================================

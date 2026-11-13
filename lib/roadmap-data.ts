@@ -7,6 +7,7 @@ import type {
   ProjectDifficulty,
   PhaseDifficulty,
 } from '@/types/roadmap'
+import { enrichCurriculum } from '@/lib/curriculum-enrichment'
 
 // ============================================
 // XP VALUES
@@ -226,6 +227,8 @@ const phase7Modules: Module[] = [
   { id: 'module-7-6', title: 'Gateway multi-LLM, Provider abstraction' },
   { id: 'module-7-7', title: 'Token counter, Cost tracker, Response validator' },
   { id: 'module-7-8', title: 'Observabilité' },
+  { id: 'module-7-9', title: 'MCP : hôte, client, serveur, outils, ressources et prompts', description: 'Distinguer découverte et appel de capacités ; traiter toute sortie d’outil comme donnée non fiable.' },
+  { id: 'module-7-10', title: 'MCP local et distant, versions et autorisation', description: 'Tester stdio et HTTP, compatibilité entre versions, authentification et moindre privilège selon la spécification actuelle.' },
 ]
 
 // Phase 8 - RAG et bases vectorielles
@@ -236,6 +239,7 @@ const phase8Modules: Module[] = [
   { id: 'module-8-3', title: 'HyDE, Query expansion, Metadata filtering' },
   { id: 'module-8-4', title: 'Evaluation RAG, Hallucination reduction' },
   { id: 'module-8-5', title: 'Citations et sources' },
+  { id: 'module-8-6', title: 'PDF natifs, scans et OCR avant indexation', description: 'Choisir extraction native ou OCR, préserver ordre de lecture, tables et provenance des pages.' },
 ]
 
 // Phase 9 - Agents IA
@@ -246,6 +250,8 @@ const phase9Modules: Module[] = [
   { id: 'module-9-3', title: 'Agents autonomes, Human-in-the-loop' },
   { id: 'module-9-4', title: 'Multi-agent systems' },
   { id: 'module-9-5', title: 'Sandboxing, Sécurité, Limites des agents' },
+  { id: 'module-9-6', title: 'Workflows, état durable et idempotence', description: 'Choisir un graphe déterministe ou une boucle d’agent ; reprendre après panne sans répéter les effets externes.' },
+  { id: 'module-9-7', title: 'Budgets, traces et évaluations agentiques', description: 'Limiter outils, temps et coût ; mesurer les trajectoires et définir les approbations humaines.' },
 ]
 
 // Phase 10 - Fine-tuning
@@ -263,6 +269,8 @@ const phase11Modules: Module[] = [
   { id: 'module-11-1', title: 'Image generation, Vision-language models' },
   { id: 'module-11-2', title: 'Speech-to-text, Text-to-speech, Video generation' },
   { id: 'module-11-3', title: 'Multimodal prompting, Evaluation multimodale' },
+  { id: 'module-11-4', title: 'OCR et prétraitement des documents', description: 'Distinguer texte natif et scan ; corriger rotation et contraste puis comparer Tesseract à un service OCR.' },
+  { id: 'module-11-5', title: 'Compréhension documentaire et évaluation OCR', description: 'Préserver tableaux, ordre de lecture et pages sources ; mesurer CER/WER et exactitude des champs avec revue humaine.' },
 ]
 
 // Phase 12 - MLOps et LLMOps
@@ -558,6 +566,10 @@ const phase7Tasks = generateTasks('7', [
   'Suivre les coûts par modèle',
   'Valider les réponses',
   'Ajouter de l’observabilité',
+  'Distinguer hôte, client, serveur, outils, ressources et prompts MCP',
+  'Créer un serveur MCP local et tester ses outils avec un client',
+  'Exposer un serveur MCP distant avec contrôle d’accès',
+  'Tester la compatibilité des versions MCP et les entrées non fiables',
 ])
 
 const phase8Tasks = generateTasks('8', [
@@ -575,6 +587,8 @@ const phase8Tasks = generateTasks('8', [
   'Évaluer la qualité du RAG',
   'Réduire les hallucinations',
   'Ajouter citations et sources',
+  'Indexer des PDF natifs et des PDF scannés avec OCR',
+  'Comparer le RAG avec et sans OCR sur des questions documentaires',
 ])
 
 const phase9Tasks = generateTasks('9', [
@@ -590,6 +604,10 @@ const phase9Tasks = generateTasks('9', [
   'Sandboxer les agents pour la sécurité',
   'Renforcer la sécurité des agents',
   'Comprendre les limites des agents',
+  'Choisir entre workflow déterministe et agent selon la tâche',
+  'Reprendre une exécution interrompue sans répéter les effets externes',
+  'Définir budget, nombre maximal d’étapes et condition d’arrêt',
+  'Tracer et évaluer les appels d’outils et les interventions humaines',
 ])
 
 const phase10Tasks = generateTasks('10', [
@@ -619,6 +637,11 @@ const phase11Tasks = generateTasks('11', [
   'Générer de la vidéo',
   'Créer des prompts multimodaux',
   'Évaluer les modèles multimodaux',
+  'Distinguer extraction native, OCR et compréhension de document',
+  'Prétraiter des scans avant OCR : rotation, contraste et langue',
+  'Extraire texte, tableaux et ordre de lecture avec provenance',
+  'Comparer Tesseract et un service OCR sur un corpus annoté',
+  'Mesurer CER, WER et exactitude des champs puis revoir les erreurs',
 ])
 
 const phase12Tasks = generateTasks('12', [
@@ -1841,6 +1864,9 @@ export const phases: Phase[] = [
   ),
 ]
 
+enrichCurriculum(phases, capstonePhase)
+phases.push(capstonePhase)
+
 // ============================================
 // COMPLETE ROADMAP
 // ============================================
@@ -1851,7 +1877,7 @@ export const roadmap: Roadmap = {
   description: 'Roadmap interactive et gamifiée pour devenir AI Engineer sur le marché actuel. Maîtrisez tous les concepts clés de l\'ingénierie IA, du Python aux LLM, en passant par le Deep Learning, le RAG et les Agents.',
   totalPhases: phases.length,
   totalTasks: phases.reduce((sum, phase) => sum + phase.tasks.length, 0),
-  totalProjects: phases.reduce((sum, phase) => sum + 3, 0) * phases.length + 3,
+  totalProjects: phases.reduce((sum, phase) => sum + Object.keys(phase.projects).length, 0),
   phases,
   capstone: capstonePhase,
 }

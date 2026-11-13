@@ -5,16 +5,17 @@ type Resource = { label: string; href: string }
 // Documentation maintenue par les auteurs des outils. Les exercices restent
 // indépendants d'un fournisseur payant : une alternative locale suffit.
 const resources: Record<number, Resource[]> = {
+  1: [{ label: 'OWASP Top 10:2025', href: 'https://top10.owasp.org/' }, { label: 'OWASP : validation des entrées', href: 'https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html' }, { label: 'OWASP : gestion des secrets', href: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html' }],
   3: [{ label: 'Guide scikit-learn', href: 'https://scikit-learn.org/stable/user_guide.html' }, { label: 'Évaluation des modèles', href: 'https://scikit-learn.org/stable/modules/model_evaluation.html' }],
   4: [{ label: 'Tutoriels PyTorch', href: 'https://docs.pytorch.org/tutorials/' }],
   5: [{ label: 'Cours NLP Hugging Face', href: 'https://huggingface.co/learn/llm-course/chapter1/1' }, { label: 'Documentation Transformers', href: 'https://huggingface.co/docs/transformers/index' }],
-  6: [{ label: 'Guide OpenAI API', href: 'https://platform.openai.com/docs/overview' }, { label: 'Guide Ollama', href: 'https://docs.ollama.com/' }, { label: 'Guide de sécurité OWASP LLM', href: 'https://genai.owasp.org/llm-top-10/' }],
+  6: [{ label: 'Guide OpenAI API', href: 'https://platform.openai.com/docs/overview' }, { label: 'Guide Ollama', href: 'https://docs.ollama.com/' }, { label: 'Guide de sécurité OWASP LLM', href: 'https://genai.owasp.org/llm-top-10/' }, { label: 'Prompts : critères de réussite', href: 'https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-templates-and-variables' }, { label: 'NIST : risques de l’IA générative', href: 'https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence' }],
   7: [{ label: 'Spécification MCP 2026-07-28', href: 'https://modelcontextprotocol.io/specification/2026-07-28' }, { label: 'SDK TypeScript MCP', href: 'https://ts.sdk.modelcontextprotocol.io/v2/' }, { label: 'LangGraph', href: 'https://docs.langchain.com/oss/python/langgraph/overview' }],
   8: [{ label: 'Guide pgvector', href: 'https://github.com/pgvector/pgvector' }, { label: 'OCR Tesseract : améliorer les entrées', href: 'https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html' }, { label: 'Parseur de documents et chunking', href: 'https://docs.cloud.google.com/document-ai/docs/layout-parse-chunk' }],
   9: [{ label: 'Agents SDK : traces', href: 'https://openai.github.io/openai-agents-python/tracing/' }, { label: 'Agents SDK : garde-fous', href: 'https://openai.github.io/openai-agents-python/guardrails/' }, { label: 'Exécution durable LangGraph', href: 'https://docs.langchain.com/oss/python/langgraph/durable-execution' }],
   10: [{ label: 'Guide PEFT', href: 'https://huggingface.co/docs/peft/index' }, { label: 'Guide TRL', href: 'https://huggingface.co/docs/trl/index' }],
   11: [{ label: 'OCR Tesseract', href: 'https://tesseract-ocr.github.io/tessdoc/' }, { label: 'Document AI OCR', href: 'https://docs.cloud.google.com/document-ai/docs/enterprise-document-ocr' }, { label: 'Extraction de mise en page', href: 'https://docs.cloud.google.com/document-ai/docs/layout-parse-chunk' }],
-  12: [{ label: 'Documentation OpenTelemetry', href: 'https://opentelemetry.io/docs/' }, { label: 'Guide Docker', href: 'https://docs.docker.com/get-started/' }],
+  12: [{ label: 'Documentation OpenTelemetry', href: 'https://opentelemetry.io/docs/' }, { label: 'Guide Docker', href: 'https://docs.docker.com/get-started/' }, { label: 'OWASP ASVS 5.0', href: 'https://asvs.owasp.org/' }],
   13: [{ label: 'Architecture Well-Architected', href: 'https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html' }, { label: 'Guide des systèmes IA', href: 'https://cloud.google.com/architecture/ai-ml' }],
   14: [{ label: 'Documentation PostgreSQL', href: 'https://www.postgresql.org/docs/current/' }, { label: 'Guide pgvector', href: 'https://github.com/pgvector/pgvector' }],
   15: [{ label: 'Documentation llama.cpp', href: 'https://github.com/ggml-org/llama.cpp' }, { label: 'Documentation vLLM', href: 'https://docs.vllm.ai/' }],
@@ -65,6 +66,7 @@ const projectEvidence: Record<number, string> = {
 // sans modifier la progression enregistrée des utilisateurs.
 const specialGuidance: Record<string, string> = {
   'task-6-8': 'Expliquez RLHF et DPO avec un jeu de préférences miniature ; réalisez une expérience avec TRL si vos ressources le permettent. Comparez au SFT, sans présenter un schéma théorique comme un entraînement complet.',
+  'task-6-15': 'Construisez deux attaques bénignes, une dans le message utilisateur et une dans un document récupéré. Vérifiez que les droits restent appliqués côté serveur ; un prompt défensif seul ne constitue pas une protection suffisante.',
   'task-7-7': 'Lisez la version 2026-07-28 de MCP : hôte, client, serveur, outils, ressources et prompts. Distinguez les anciennes versions à initialisation des échanges stateless par requête ; notez la version négociée dans vos essais.',
   'task-7-19': 'Dessinez les responsabilités de l’hôte, du client et du serveur MCP ; illustrez tools/list, resources/list et prompts/list avec un exemple de chaque.',
   'task-7-20': 'Implémentez un serveur MCP local en stdio exposant un outil en lecture seule et une ressource. Testez-le avec un client compatible et un appel d’entrée invalide.',
@@ -82,6 +84,8 @@ const specialGuidance: Record<string, string> = {
   'task-11-12': 'Extrayez titres, paragraphes et tableaux avec coordonnées ou numéros de page ; vérifiez l’ordre de lecture sur un document à deux colonnes.',
   'task-11-13': 'Annotez au moins dix pages variées, puis comparez Tesseract et un service OCR ou un second moteur local sur exactitude, coût, latence et confidentialité.',
   'task-11-14': 'Calculez CER/WER et exactitude de champs critiques sur les pages annotées ; affichez confiance et routez les erreurs importantes vers une revue humaine.',
+  'task-17-14': 'Construisez des cas de test pour fuite de données, injection, biais, refus et abus d’outils ; classez-les par gravité et mesurez les échecs après chaque changement de modèle ou prompt.',
+  'task-17-15': 'Définissez qui approuve une action à fort impact, quelles traces sont conservées, comment signaler un incident et comment désactiver rapidement la fonctionnalité concernée.',
 }
 
 function makeTaskDescription(task: Task, phase: Phase): string {
@@ -107,7 +111,15 @@ function setProject(project: Project, data: Partial<Pick<Project, 'title' | 'des
 
 function enrichProjects(phase: Phase): void {
   const { easy, medium, hard } = phase.projects
+  if (phase.phaseNumber === 1) {
+    for (const project of Object.values(phase.projects)) {
+      project.validationCriteria.push('Aucun secret ni donnée personnelle réelle n’est présent dans le dépôt ou les logs', 'Les entrées invalides sont rejetées et au moins un test le démontre')
+    }
+  }
   if (phase.phaseNumber === 6) {
+    for (const project of Object.values(phase.projects)) {
+      project.validationCriteria.push('Les prompts sont versionnés et comparés sur des cas normaux, ambigus et adversariaux', 'Aucun secret n’est exposé au modèle, au client ou dans les logs')
+    }
     const cv = Object.values(phase.projects).find(project => /CV/.test(project.title))
     if (cv) setProject(cv, {
       title: 'Extracteur de compétences de CV avec revue humaine',
@@ -115,6 +127,8 @@ function enrichProjects(phase: Phase): void {
       objective: 'Structurer des informations avec provenance et correction humaine.',
       validationCriteria: ['Les champs extraits renvoient au passage source', 'L’utilisateur peut corriger ou supprimer chaque champ', 'Aucun score ni décision de recrutement n’est généré', 'Les CV de test sont fictifs ou utilisés avec consentement'],
     })
+    hard.deliverables.push('Revue de sécurité avant exposition publique avec tests et décision documentée')
+    hard.validationCriteria.push('Les accès sont vérifiés côté serveur et testés avec deux comptes', 'Les secrets sont hors du dépôt et des réponses', 'Entrées, appels LLM et coûts sont limités', 'Une injection indirecte et une fuite de données sont testées avant déploiement')
   }
   if (phase.phaseNumber === 7) {
     setProject(easy, { title: 'Client et serveur MCP local', description: 'Connecter un client à un serveur MCP local exposant un outil en lecture seule et une ressource.', objective: 'Comprendre les frontières hôte, client et serveur du protocole MCP.', suggestedStack: ['TypeScript ou Python', 'SDK MCP officiel', 'stdio'], deliverables: ['Serveur et client exécutables', 'Schémas d’entrée et exemples d’erreur', 'README avec version du protocole et démonstration'], validationCriteria: ['Un client découvre puis appelle l’outil et lit la ressource', 'Une entrée invalide reçoit une erreur contrôlée', 'Le résultat d’outil est traité comme donnée non fiable'] })
@@ -136,12 +150,22 @@ function enrichProjects(phase: Phase): void {
     setProject(medium, { title: 'Extracteur de documents avec revue humaine', description: 'Extraire champs et tableaux de factures fictives ou autorisées avec provenance et correction manuelle.', objective: 'Relier OCR, compréhension de mise en page et revue des champs critiques.', suggestedStack: ['Python ou TypeScript', 'Tesseract ou Document AI', 'Interface de revue'], deliverables: ['Extraction texte et tableaux', 'Interface de correction', 'Jeu de documents annotés', 'Mesures par champ'], validationCriteria: ['Chaque champ montre sa page et sa zone source', 'L’utilisateur peut corriger les champs', 'L’exactitude est mesurée par champ, y compris montants et dates', 'Les documents sensibles sont protégés ou fictifs'] })
     setProject(hard, { title: 'Pipeline documentaire multimodal évalué', description: 'Traiter PDF natifs, scans et images avec routage, extraction structurée et recherche citée.', objective: 'Concevoir une chaîne documentaire fiable de l’ingestion à la revue.', deliverables: ['Routage natif ou OCR', 'Extraction de texte, tableaux et métadonnées', 'Recherche avec citations de pages', 'Tableau de bord qualité, coût et latence', 'Procédure de revue humaine'], validationCriteria: ['Chaque type de document suit le bon chemin et garde sa provenance', 'Les tableaux et l’ordre de lecture sont vérifiés sur un corpus annoté', 'Les champs incertains sont soumis à revue humaine', 'La qualité, la latence et le coût sont comparés à une baseline'] })
   }
+  if (phase.phaseNumber === 12) {
+    for (const project of Object.values(phase.projects)) {
+      project.deliverables.push('Rapport de revue de sécurité avant déploiement et procédure de retour arrière')
+      project.validationCriteria.push('Les tests couvrent autorisation, validation des entrées, secrets et dépendances', 'Un incident simulé déclenche une alerte sans divulguer de données sensibles', 'Le retour arrière est décrit et testé avant publication')
+    }
+  }
+  if (phase.phaseNumber === 17) {
+    setProject(medium, { title: 'Audit de résistance aux prompt injections', description: 'Construire un jeu d’attaques directes et indirectes et tester une défense en profondeur, sans promettre un blocage parfait.', objective: 'Mesurer le risque résiduel et limiter les effets d’une instruction non fiable.', suggestedStack: ['Python ou TypeScript', 'LLM API ou modèle local', 'Tests automatisés'], deliverables: ['Jeu d’attaques annotées', 'Tests avant/après', 'Contrôles de permissions et validation côté serveur', 'Rapport de faux positifs et risques résiduels'], validationCriteria: ['Les attaques directes et indirectes sont couvertes', 'Les permissions et actions sensibles restent contrôlées hors du prompt', 'Les taux de réussite des attaques et les faux positifs sont mesurés', 'Le rapport décrit les scénarios encore vulnérables'] })
+  }
 }
 
 export function enrichCurriculum(phases: Phase[], capstone: Phase): void {
   for (const phase of [...phases, capstone]) {
-    if (phase.phaseNumber < 3) continue
     phase.resources = resources[phase.phaseNumber]
+    if (phase.phaseNumber === 1) enrichProjects(phase)
+    if (phase.phaseNumber < 3) continue
     phase.modules = phase.modules.map(module => ({ ...module, description: module.description || `Étudier ${module.title} et l’appliquer à un exemple reproductible. Relier les choix techniques à l’objectif de la phase : ${phase.objective}` }))
     phase.tasks = phase.tasks.map(task => ({ ...task, description: task.description || makeTaskDescription(task, phase) }))
     enrichProjects(phase)

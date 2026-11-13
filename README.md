@@ -62,4 +62,6 @@ Lier le projet à un PostgreSQL durable, ajouter `DATABASE_URL` et `AUTH_SECRET`
 
 Les 18 phases et le Capstone disposent de modules, consignes de tâches, ressources officielles, livrables et critères d’autoévaluation. Les phases avancées abordent notamment MCP (version 2026-07-28, outils, ressources, prompts, autorisation), workflows agentiques (outils, limites, reprise, traces, approbation humaine) et OCR (PDF natifs et scannés, mise en page, CER/WER, revue humaine). Le Capstone est accessible après validation de la phase 17.
 
+La cybersécurité de base commence en phase 1 (secrets, entrées, autorisation, dépendances). La phase 6 couvre le prompt engineering évalué et l’AI safety avant les projets LLM exposés. La phase 12 commence par une revue de sécurité, des tests avec deux comptes, une analyse des risques IA et un plan de retour arrière avant les exercices de déploiement. La phase 17 approfondit la gouvernance et la réponse aux incidents. Un prompt défensif ou un filtre ne remplace jamais les contrôles côté serveur.
+
 Le programme a été revu en novembre 2026. Les ressources externes restent susceptibles d’évoluer : vérifier leur version avant un nouvel exercice. La validation automatique du code et la revue par un tiers ne sont pas disponibles ; les projets sont terminés par attestation manuelle de l’apprenant.

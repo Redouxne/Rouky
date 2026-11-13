@@ -63,3 +63,25 @@ test('le Capstone est visible et se débloque après la phase 17', () => {
   progress.phases['phase-17'] = { status: 'completed', completedAt: '2026-11-13T00:00:00.000Z' }
   assert.equal(getPhaseSummary(capstone, phases, progress).status, 'available')
 })
+
+test('la sécurité arrive avant les exercices de déploiement et ne repose pas sur un prompt seul', () => {
+  const basics = phases[1]
+  assert.match(basics.modules.map(module => module.title).join(' '), /Cybersécurité de base/i)
+  assert.ok(basics.tasks.some(task => /task-1-security-/.test(task.id) && /deux comptes/.test(task.description || '')))
+  assert.ok(basics.resources?.some(resource => /OWASP/.test(resource.label)))
+
+  const llm = phases[6]
+  assert.ok(llm.tasks.some(task => /spécification de prompt testable/.test(task.title)))
+  assert.ok(llm.tasks.some(task => /injection et fuite/.test(task.title)))
+  assert.match(llm.tasks.find(task => task.id === 'task-6-15')?.description || '', /prompt défensif seul ne constitue pas une protection/i)
+  assert.ok(llm.projects.hard.validationCriteria.some(criterion => /avant déploiement/.test(criterion)))
+
+  const mlops = phases[12]
+  assert.match(mlops.tasks[0].title, /frontières de confiance/)
+  assert.match(mlops.tasks[5].title, /retour arrière/)
+  assert.equal(mlops.tasks[6].id, 'task-12-0')
+  for (const project of Object.values(mlops.projects)) {
+    assert.ok(project.validationCriteria.some(criterion => /autorisation, validation des entrées, secrets/.test(criterion)))
+  }
+  assert.match(phases[17].projects.medium.description, /sans promettre un blocage parfait/)
+})

@@ -26,7 +26,7 @@ export type PhaseStatus = 'locked' | 'available' | 'in_progress' | 'completed'
 // PROJECT STATUS
 // ============================================
 
-export type ProjectStatus = 'not_started' | 'in_progress' | 'completed'
+export type ProjectStatus = 'not_started' | 'in_progress' | 'submitted' | 'completed'
 
 // ============================================
 // BADGE STATUS
@@ -136,7 +136,7 @@ export interface Badge {
   icon: string
   category: string
   requirement: string
-  requirementValue: number | string
+  requirementValue: number | string | boolean
   xp: number
 }
 

@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { Menu } from 'lucide-react'
-import { formatNumber } from '@/lib/utils'
+import { useProgress } from '@/components/ProgressProvider'
 
 interface HeaderProps {
   onMenuClick: () => void
 }
 
 export default function Header({ onMenuClick }: HeaderProps) {
-  const userStats = { xp: 0, level: 1 }
+  const { user } = useProgress()
 
   return (
     <header className="sticky top-0 z-10 h-16 bg-background/80 backdrop-blur-sm border-b border-border">
@@ -30,17 +30,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
           </Link>
         </div>
 
-        {/* User stats */}
-        {userStats && (
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-muted/50 rounded-full">
-              <span className="text-sm font-medium">Niveau {userStats.level}</span>
-              <span className="text-xs text-muted-foreground">
-                {formatNumber(userStats.xp)} XP
-              </span>
-            </div>
-          </div>
-        )}
+        <Link href="/account" className="rounded-full bg-muted/50 px-3 py-1.5 text-sm">{user ? user.name : 'Connexion'}</Link>
       </div>
     </header>
   )

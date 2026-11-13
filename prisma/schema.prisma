@@ -18,6 +18,8 @@ model User {
   id              String            @id @default(cuid())
   name            String
   email           String            @unique
+  passwordHash    String?
+  snapshot        ProgressSnapshot?
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   progress        UserProgress?
@@ -26,6 +28,13 @@ model User {
   projectProgress ProjectProgress[]
   activityLogs    ActivityLog[]
   badgeProgress   BadgeProgress[]
+}
+
+model ProgressSnapshot {
+  userId    String   @id
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  data      Json
+  updatedAt DateTime @updatedAt
 }
 
 model UserProgress {

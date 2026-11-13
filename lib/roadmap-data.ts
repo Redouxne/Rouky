@@ -5,6 +5,7 @@ import type {
   Task,
   Project,
   ProjectDifficulty,
+  PhaseDifficulty,
 } from '@/types/roadmap'
 
 // ============================================
@@ -732,7 +733,7 @@ const createProject = (
   suggestedStack: string[],
   deliverables: string[],
   validationCriteria: string[],
-  requiresGithubRepo = false
+  requiresGithubRepo = true
 ): Project => ({
   id: `project-${phaseId}-${difficulty}-${index}`,
   title,

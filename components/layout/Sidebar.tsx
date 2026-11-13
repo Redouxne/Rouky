@@ -12,7 +12,7 @@ interface SidebarProps {
 const navItems = [
   { name: 'Accueil', href: '/', icon: Home },
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Map', href: '/roadmap', icon: Map },
+  { name: 'Roadmap', href: '/roadmap', icon: Map },
   { name: 'Projets', href: '/projects', icon: CheckSquare },
   { name: 'Progression', href: '/progress', icon: FileText },
   { name: 'Badges', href: '/badges', icon: Trophy },

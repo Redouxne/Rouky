@@ -37,7 +37,7 @@ export default async function CreditsPage() {
           <CardContent className="space-y-4">
             <p className="text-muted-foreground leading-relaxed text-center">
               Rouky est une application web moderne, interactive et gamifiée conçue pour vous aider à 
-              maîtriser tous les concepts clés de l'ingénierie IA. Du Python aux LLM, en passant par 
+              maîtriser tous les concepts clés de l&apos;ingénierie IA. Du Python aux LLM, en passant par
               le Deep Learning, le RAG et les Agents, cette roadmap vous guide étape par étape.
             </p>
 
@@ -83,7 +83,7 @@ export default async function CreditsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-muted-foreground">
-              Rouky s'inspire du projet <strong>Ultimate AI Engineer Roadmap 2026</strong> 
+              Rouky s&apos;inspire du projet <strong>Ultimate AI Engineer Roadmap 2026</strong>
               créé par <strong>Prince Singh</strong>.
             </p>
 
@@ -94,7 +94,7 @@ export default async function CreditsPage() {
               </div>
               <p className="text-sm text-muted-foreground mb-2">
                 Une roadmap complète pour devenir AI Engineer, couvrant tous les aspects 
-                de l'ingénierie IA moderne.
+                de l&apos;ingénierie IA moderne.
               </p>
               <a href="https://github.com/PrinceSinghhub/Ultimate-AI-Engineer-Roadmap-2026" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="sm" className="gap-1 w-full">
@@ -125,7 +125,7 @@ export default async function CreditsPage() {
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mt-2">
                 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
+of this software and associated documentation files (the &quot;Software&quot;), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
@@ -136,7 +136,7 @@ of this software and associated documentation files (the "Software"), to deal
  copies or substantial portions of the Software.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mt-2">
-                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -156,7 +156,7 @@ of this software and associated documentation files (the "Software"), to deal
               Technologies utilisées
             </CardTitle>
             <CardDescription>
-              Stack technique de l'application
+              Stack technique de l&apos;application
             </CardDescription>
           </CardHeader>
           <CardContent>

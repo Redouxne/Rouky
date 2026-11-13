@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import AppShell from '@/components/layout/AppShell'
+import { ProgressProvider } from '@/components/ProgressProvider'
+import { SessionNotice } from '@/components/SessionNotice'
 
 export const metadata: Metadata = {
   title: 'Rouky - Deviens Ingénieur IA étape par étape',
@@ -15,9 +17,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body>
-        <AppShell>
-          {children}
-        </AppShell>
+        <ProgressProvider><AppShell><SessionNotice />{children}</AppShell></ProgressProvider>
       </body>
     </html>
   )

@@ -34,8 +34,10 @@ Variables requises :
 | --- | --- |
 | `DATABASE_URL` | URL PostgreSQL avec SSL en production. Le compte SQL doit pouvoir lire et écrire les tables. |
 | `AUTH_SECRET` | Signature des cookies de session ; même valeur sur toutes les instances d’un environnement. |
+| `DIRECT_DATABASE_URL` | Optionnelle : connexion directe utilisée uniquement par `npm run db:push` si l’URL d’exécution passe par un pooler. |
 
-`STORAGE_POSTGRES_PRISMA_URL` est accepté comme ancien alias de `DATABASE_URL` à l’exécution, mais `DATABASE_URL` reste requis pour `prisma db push`. La base doit être mise à jour **avant** le déploiement du code.
+`STORAGE_POSTGRES_PRISMA_URL` est accepté comme ancien alias de `DATABASE_URL` à l’exécution. La base doit être mise à jour **avant** le déploiement du code ; `npm run db:push` utilise `DIRECT_DATABASE_URL` si elle est définie, sinon `DATABASE_URL`.
+Pour Supabase, la V1 en production utilise le pooler en port 5432 pour `DATABASE_URL`. L’outil de schéma Prisma a nécessité l’hôte direct : renseignez alors `DIRECT_DATABASE_URL` lors des futures mises à jour de la base.
 
 ## Vérifications
 
@@ -51,6 +53,8 @@ BASE_URL=http://localhost:3100 npm run test:e2e
 Le test de parcours crée deux comptes de test dans la base visée par `BASE_URL`. Utilisez une base de test, jamais la production. Il vérifie que le dépôt seul ne valide pas le projet, que la phase suivante se débloque après attestation et que la progression survit à la reconnexion sans fuite entre comptes.
 
 ## Vercel
+
+Production : [rouky-umber.vercel.app](https://rouky-umber.vercel.app).
 
 Lier le projet à un PostgreSQL durable, ajouter `DATABASE_URL` et `AUTH_SECRET` dans les environnements nécessaires, appliquer `npm run db:push` avec l’URL de la base ciblée, puis déployer. Vérifier `/api/auth`, l’inscription, le parcours phase 0 et la reconnexion sur l’URL déployée.
 

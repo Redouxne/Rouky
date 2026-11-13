@@ -113,6 +113,11 @@ const phase1Modules: Module[] = [
     title: 'HTTP, APIs et async Python',
     description: 'Consommer des APIs avec requests/httpx, gérer timeouts/retries et paralléliser des appels avec asyncio.',
   },
+  {
+    id: 'module-1-8',
+    title: 'Cybersécurité de base pour développeur IA',
+    description: 'Distinguer authentification et autorisation ; valider les entrées, protéger les secrets, limiter les privilèges et vérifier les dépendances avant de publier une API.',
+  },
 ]
 
 // Phase 2 - Mathématiques et statistiques
@@ -214,6 +219,8 @@ const phase6Modules: Module[] = [
   { id: 'module-6-8', title: 'Groq, Ollama' },
   { id: 'module-6-9', title: 'Rate limits, Streaming, SSE, Token counting' },
   { id: 'module-6-10', title: 'Cost tracking, Fallback, Sécurité des clés API' },
+  { id: 'module-6-11', title: 'Prompt engineering mesuré', description: 'Définir la tâche et les critères de réussite, écrire des instructions et exemples clairs, versionner le prompt et comparer les variantes sur un jeu de cas.' },
+  { id: 'module-6-12', title: 'AI safety avant exposition d’un LLM', description: 'Cartographier données sensibles, sorties dangereuses, injection directe ou indirecte et abus d’outils ; imposer les contrôles dans le code et évaluer les échecs.' },
 ]
 
 // Phase 7 - Orchestration multi-LLM
@@ -275,6 +282,7 @@ const phase11Modules: Module[] = [
 
 // Phase 12 - MLOps et LLMOps
 const phase12Modules: Module[] = [
+  { id: 'module-12-6', title: 'Revue de sécurité avant déploiement', description: 'Vérifier frontières de confiance, accès par utilisateur, secrets, dépendances, limites de ressources, journalisation sans données sensibles et procédure de retour arrière.' },
   { id: 'module-12-0', title: 'Docker, CI/CD, Kubernetes' },
   { id: 'module-12-1', title: 'Monitoring - Logs, Traces, Metrics' },
   { id: 'module-12-2', title: 'Prometheus, Grafana, LangSmith, OpenTelemetry' },
@@ -324,6 +332,7 @@ const phase17Modules: Module[] = [
   { id: 'module-17-2', title: 'Hallucination, Évaluation humaine, Red teaming' },
   { id: 'module-17-3', title: 'Gouvernance, Conformité' },
   { id: 'module-17-4', title: 'Documentation modèle, Model cards, Risk assessment' },
+  { id: 'module-17-5', title: 'Assurance sécurité IA et réponse aux incidents', description: 'Tester les scénarios à fort impact, documenter les risques résiduels, prévoir supervision humaine, incidents et retrait d’une fonctionnalité dangereuse.' },
 ]
 
 // ============================================
@@ -414,6 +423,12 @@ const phase1Tasks = createTasks('1', [
     description: 'Rédiger README, installation, usage, tests, limites connues et exemples de commandes.',
   },
 ])
+phase1Tasks.push(...createTasks('1-security', [
+  { title: 'Protéger les secrets et données de test', description: 'Placer les clés hors du dépôt et du frontend, exclure les fichiers .env, utiliser des données fictives, puis vérifier l’historique Git et les logs avec un scan de secrets.' },
+  { title: 'Valider les entrées d’une API', description: 'Limiter type, taille et format côté serveur ; tester une entrée malformée, un fichier trop grand et un délai d’appel externe sans exposer de détails internes.' },
+  { title: 'Tester authentification et autorisation', description: 'Créer deux comptes de test ; prouver qu’un utilisateur ne peut ni lire ni modifier les données de l’autre, même en changeant un identifiant dans la requête.' },
+  { title: 'Vérifier dépendances et configuration', description: 'Lancer l’audit des dépendances, corriger une version vulnérable, limiter les permissions et documenter comment mettre à jour et révoquer un secret.' },
+]))
 
 const phase2Tasks = createTasks('2', [
   {
@@ -545,6 +560,13 @@ const phase6Tasks = generateTasks('6', [
   'Mettre en place des fallback mechanisms',
   'Sécuriser les clés API',
 ])
+phase6Tasks.push(...createTasks('6-safety', [
+  { title: 'Écrire une spécification de prompt testable', description: 'Définir public, entrée, sortie, critères de réussite, exemples et cas de refus ; conserver une version du prompt dans le dépôt.' },
+  { title: 'Comparer deux variantes de prompt', description: 'Évaluer une baseline et une variante sur au moins dix cas représentatifs, dont des cas ambigus ; mesurer exactitude, format, abstention, coût et régressions.' },
+  { title: 'Valider les sorties structurées côté serveur', description: 'Définir un schéma, rejeter les champs inattendus et les valeurs hors limites, puis tester qu’une réponse du modèle ne devient jamais une commande exécutée sans contrôle.' },
+  { title: 'Tester injection et fuite de données', description: 'Simuler une instruction malveillante dans un document et une tentative d’obtenir un secret ; vérifier la séparation des données non fiables, les permissions et l’absence de secret dans les logs.' },
+  { title: 'Rédiger une analyse de risques AI safety', description: 'Lister usages prévus et exclus, risques de préjudice, groupes touchés, supervision humaine et procédure d’incident ; tester au moins un cas où le système doit s’abstenir.' },
+]))
 
 const phase7Tasks = generateTasks('7', [
   'Comprendre les avantages de l’orchestration multi-LLM',
@@ -664,6 +686,14 @@ const phase12Tasks = generateTasks('12', [
   'Ajouter observabilité LLM',
   'Mettre en place evaluation continue',
 ])
+phase12Tasks.unshift(...createTasks('12-security', [
+  { title: 'Définir le périmètre et les frontières de confiance', description: 'Dessiner client, API, modèle, outils, base et services externes ; indiquer qui contrôle chaque entrée et où une validation ou autorisation est nécessaire.' },
+  { title: 'Tester les accès et les données par utilisateur', description: 'Exécuter des tests avec deux comptes pour les lectures et écritures ; vérifier refus d’accès aux objets d’autrui et absence de données sensibles dans les réponses.' },
+  { title: 'Contrôler secrets, dépendances et configuration', description: 'Scanner dépôt et dépendances, limiter les privilèges des jetons, séparer test et production et prévoir rotation ou révocation des secrets.' },
+  { title: 'Limiter entrées, appels externes et consommation', description: 'Tester taille et type des fichiers, timeouts, quotas, rate limiting et budget d’appels au modèle ou aux outils.' },
+  { title: 'Tester sécurité IA et journalisation avant publication', description: 'Exécuter des cas d’injection directe et indirecte, fuite de données et sortie dangereuse ; journaliser les refus et erreurs sans prompts sensibles ni secrets.' },
+  { title: 'Préparer revue et retour arrière', description: 'Conserver résultats des tests de sécurité, responsable de la décision, procédure de rollback et alerte d’incident ; publier seulement après revue des échecs bloquants.' },
+]))
 
 const phase13Tasks = generateTasks('13', [
   'Concevoir un chatbot IA scalable',
@@ -740,6 +770,8 @@ const phase17Tasks = generateTasks('17', [
   'Assurer la conformité réglementaire',
   'Documenter les modèles (Model cards)',
   'Effectuer risk assessment',
+  'Construire un jeu de tests de sécurité IA par niveau de risque',
+  'Documenter supervision humaine et réponse à un incident IA',
 ])
 
 // ============================================

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { 
+import {
   Heart,
   Star,
   ExternalLink,
@@ -12,16 +12,13 @@ import {
 
 export default async function CreditsPage() {
   return (
-    <div className="container mx-auto max-w-4xl">
+    <div className="mx-auto max-w-4xl pb-12">
       <div className="space-y-8">
         {/* Header */}
-        <div className="text-center py-12">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
-            <span className="text-3xl font-bold">R</span>
-          </div>
-          
-          <h1 className="text-4xl font-bold mb-4">Crédits & Licence</h1>
-          <p className="text-lg text-muted-foreground">
+        <div className="py-6">
+          <p className="eyebrow mb-3">À propos</p>
+          <h1 className="page-title mb-4">Crédits & Licence<span className="text-primary">.</span></h1>
+          <p className="text-base text-muted-foreground">
             Remerciements et informations légales
           </p>
         </div>
@@ -36,7 +33,7 @@ export default async function CreditsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-muted-foreground leading-relaxed text-center">
-              Rouky est une application web moderne, interactive et gamifiée conçue pour vous aider à 
+              Rouky est une plateforme d’apprentissage conçue pour vous aider à
               maîtriser tous les concepts clés de l&apos;ingénierie IA. Du Python aux LLM, en passant par
               le Deep Learning, le RAG et les Agents, cette roadmap vous guide étape par étape.
             </p>
@@ -59,7 +56,7 @@ export default async function CreditsPage() {
                   Visiter le site
                 </Button>
               </Link>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Redouxne/Rouky" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="sm" className="gap-1 w-full">
                   <Code className="h-4 w-4" />
                   Voir sur GitHub
@@ -93,7 +90,7 @@ export default async function CreditsPage() {
                 <span className="font-medium">Ultimate AI Engineer Roadmap 2026</span>
               </div>
               <p className="text-sm text-muted-foreground mb-2">
-                Une roadmap complète pour devenir AI Engineer, couvrant tous les aspects 
+                Une roadmap complète pour devenir AI Engineer, couvrant tous les aspects
                 de l&apos;ingénierie IA moderne.
               </p>
               <a href="https://github.com/PrinceSinghhub/Ultimate-AI-Engineer-Roadmap-2026" target="_blank" rel="noopener noreferrer">

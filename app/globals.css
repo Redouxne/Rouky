@@ -1,76 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600;7..72,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 :root {
-  --background: 240 28% 14%;
-  --foreground: 38 53% 94%;
-  --card: 240 28% 16%;
-  --card-foreground: 38 53% 94%;
-  --popover: 240 28% 16%;
-  --popover-foreground: 38 53% 94%;
-  --primary: 39 57% 51%;
-  --primary-foreground: 240 28% 14%;
-  --secondary: 351 55% 27%;
-  --secondary-foreground: 38 53% 94%;
-  --muted: 351 28% 22%;
-  --muted-foreground: 38 26% 72%;
-  --accent: 351 51% 36%;
-  --accent-foreground: 38 67% 98%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 38 67% 98%;
-  --border: 39 57% 51% / 0.25;
-  --input: 39 57% 51% / 0.28;
-  --ring: 39 68% 62%;
-  --gold-light: 41 68% 62%;
-  --gold-pale: 42 74% 77%;
-  --bordeaux-dark: 352 61% 18%;
-  --white-warm: 38 67% 98%;
-}
-
-body {
-  color: hsl(var(--foreground));
-  background:
-    radial-gradient(ellipse at 78% 8%, hsl(var(--secondary) / 0.22), transparent 42%),
-    radial-gradient(ellipse at 8% 96%, hsl(var(--primary) / 0.1), transparent 34%),
-    hsl(var(--background));
-  font-family: 'Inter', system-ui, sans-serif;
+  --background: 43 48% 95%;
+  --foreground: 38 10% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 38 10% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 38 10% 16%;
+  --primary: 18 49% 36%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 42 28% 89%;
+  --secondary-foreground: 38 10% 16%;
+  --muted: 42 24% 92%;
+  --muted-foreground: 45 11% 39%;
+  --accent: 42 28% 89%;
+  --accent-foreground: 38 10% 16%;
+  --destructive: 0 60% 37%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 42 27% 85%;
+  --input: 42 27% 78%;
+  --ring: 18 49% 36%;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Literata', Georgia, serif;
+    font-size: 14px;
+    line-height: 1.65;
+    background-image: radial-gradient(rgba(44, 41, 36, 0.025) 0.65px, transparent 0.65px);
+    background-size: 7px 7px;
   }
-
-  ::selection {
-    background: hsl(var(--primary) / 0.35);
-    color: hsl(var(--white-warm));
-  }
-
-  a {
-    text-underline-offset: 4px;
-  }
+  h1, h2, h3, h4 { font-family: 'Cormorant Garamond', Georgia, serif; letter-spacing: -0.025em; }
+  h1 { line-height: 0.99; }
+  h2, h3 { line-height: 1.12; }
+  ::selection { background: #e7d7c3; color: #2c2924; }
+  a { text-underline-offset: 4px; }
+  input, select, textarea { font: inherit; }
+  input[type='checkbox'] { accent-color: #8a4b2f; width: 16px; height: 16px; }
+  :focus-visible { outline: 2px solid #8a4b2f; outline-offset: 3px; }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+@layer components {
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.19em] text-primary; }
+  .page-title { @apply text-5xl font-semibold md:text-6xl; }
+  .section-title { @apply text-3xl font-semibold md:text-4xl; }
+  .paper-rule { border-top: 1px solid hsl(var(--border)); }
+  .field-input { @apply mt-2 w-full rounded-lg border border-input bg-card px-3 py-2.5 text-foreground outline-none transition-colors focus:border-primary; }
+  .status-pill { @apply inline-flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-0.5 text-[11px] font-semibold text-muted-foreground; }
+  .status-pill[data-status='completed'] { @apply border-primary/30 bg-primary/10 text-primary; }
+  .status-pill[data-status='in_progress'], .status-pill[data-status='submitted'] { @apply border-[#d8b893] bg-[#f7ead6] text-[#704524]; }
+  .status-pill[data-status='locked'] { @apply bg-muted text-muted-foreground; }
+  .sketch-panel { @apply relative overflow-hidden rounded-2xl border border-border bg-card; box-shadow: 0 12px 34px rgba(44, 41, 36, 0.045); }
+  .chapter-number { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 3.25rem; line-height: 1; color: #c1ad91; }
+  .task-row { @apply flex items-start gap-4 rounded-xl border border-border bg-card px-4 py-4 transition-colors hover:border-primary/40 hover:bg-[#fffdf8]; }
+  .task-row:has(input:checked) { @apply border-primary/20 bg-[#f8f2e8]; }
 }
 
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f8f4eb; }
+::-webkit-scrollbar-thumb { background: #c8bda9; border-radius: 999px; }
 
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary) / 0.55);
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary));
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

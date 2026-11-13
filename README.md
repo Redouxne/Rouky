@@ -2,6 +2,10 @@
 
 Parcours d’apprentissage de l’ingénierie IA avec 18 phases, un Capstone final, des exercices et trois projets par étape.
 
+## Direction visuelle
+
+Interface inspirée du taste pack [Graphite Sketch de Palletism](https://palletism.art/collections/graphite-sketch), variante « warm vellum » : fond papier `#F8F4EB`, encre `#2C2924`, accent terre cuite `#8A4B2F`, titres Cormorant Garamond et texte Literata. L’illustration d’accueil [rouky-cartographer.png](public/images/rouky-cartographer.png) a été générée pour Rouky avec l’outil intégré ImageGen. Prompt : « Editorial graphite pencil drawing on warm white paper: a learner cartographer at a desk drawing a winding map of learning milestones, notebook and compass, restrained grayscale, transparent background, wide composition with room for a headline, no typography or logos. »
+
 ## V1 livrée
 
 - Compte par email et mot de passe ; session signée en cookie `HttpOnly`.

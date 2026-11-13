@@ -19,11 +19,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="flex">
+      <div className="flex min-h-screen">
         {/* Sidebar */}
         <div
           className={cn(
-            'fixed left-0 top-0 z-40 h-full w-64 bg-card border-r border-border transform transition-transform duration-300 ease-in-out',
+            'fixed left-0 top-0 z-40 h-full w-[260px] border-r border-border bg-[#f2eee5] transform transition-transform duration-300 ease-in-out',
             isSidebarOpen ? 'translate-x-0' : '-translate-x-full',
             'lg:translate-x-0 lg:static lg:z-auto'
           )}
@@ -34,18 +34,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         {/* Overlay for mobile sidebar */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 z-30 bg-black/50 lg:hidden"
+            className="fixed inset-0 z-30 bg-[#2c2924]/45 lg:hidden"
             onClick={() => setIsSidebarOpen(false)}
+            aria-hidden="true"
           />
         )}
 
         {/* Main content */}
-        <div className="flex-1 lg:ml-0">
+        <div className="min-w-0 flex-1">
           {/* Header */}
           <Header onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
 
           {/* Page content */}
-          <main className="p-4 lg:p-6">{children}</main>
+          <main className="px-5 py-8 md:px-8 lg:px-12 lg:py-10">{children}</main>
         </div>
       </div>
     </div>
